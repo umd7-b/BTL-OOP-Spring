@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/admin/css/dashboard/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>🎯 Admin Panel</h2>
+            </div>
+            <div class="menu-item active" onclick="showSection('dashboard')">
+                <i>📊</i>
+                <span>Dashboard</span>
+            </div>
+            <div class="menu-item" onclick="showSection('users')">
+                <i>👥</i>
+                <span>Người dùng</span>
+            </div>
+            <div class="menu-item" onclick="showSection('products')">
+                <i>📦</i>
+                <span>Sản phẩm</span>
+            </div>
+            <div class="menu-item" onclick="showSection('orders')">
+                <i>🛒</i>
+                <span>Đơn hàng</span>
+            </div>
+            <div class="menu-item" onclick="showSection('analytics')">
+                <i>📈</i>
+                <span>Thống kê</span>
+            </div>
+            <div class="menu-item" onclick="showSection('settings')">
+                <i>⚙️</i>
+                <span>Cài đặt</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>Admin User</span>
+                    <div class="user-avatar">A</div>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <h3>Tổng người dùng</h3>
+                        <div class="number">1,234</div>
+                    </div>
+                    <div class="stat-card green">
+                        <h3>Doanh thu</h3>
+                        <div class="number">$45,678</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <h3>Đơn hàng</h3>
+                        <div class="number">567</div>
+                    </div>
+                    <div class="stat-card red">
+                        <h3>Sản phẩm</h3>
+                        <div class="number">89</div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="data-table">
+                    <h2>Đơn hàng gần đây</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Khách hàng</th>
+                                <th>Sản phẩm</th>
+                                <th>Giá trị</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Laptop Dell XPS</td>
+                                <td>$1,299</td>
+                                <td><span class="status active">Đã giao</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Xem</button>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>Trần Thị B</td>
+                                <td>iPhone 15 Pro</td>
+                                <td>$999</td>
+                                <td><span class="status pending">Đang xử lý</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Xem</button>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#003</td>
+                                <td>Lê Văn C</td>
+                                <td>Samsung Galaxy S24</td>
+                                <td>$899</td>
+                                <td><span class="status active">Đã giao</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Xem</button>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#004</td>
+                                <td>Phạm Thị D</td>
+                                <td>MacBook Pro M3</td>
+                                <td>$2,499</td>
+                                <td><span class="status inactive">Đã hủy</span></td>
+                                <td>
+                                    <button class="btn btn-primary">Xem</button>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            
+            event.target.closest('.menu-item').classList.add('active');
+            
+            const titles = {
+                'dashboard': 'Dashboard',
+                'users': 'Quản lý người dùng',
+                'products': 'Quản lý sản phẩm',
+                'orders': 'Quản lý đơn hàng',
+                'analytics': 'Thống kê & Báo cáo',
+                'settings': 'Cài đặt hệ thống'
+            };
+            
+            document.querySelector('.header h1').textContent = titles[section];
+        }
+    </script>
+</body>
+</html>
