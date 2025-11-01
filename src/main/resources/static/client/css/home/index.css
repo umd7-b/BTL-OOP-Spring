@@ -1,0 +1,924 @@
+:root {
+    --primary: #e6ebee;
+    --primary-600: #e9edf0;
+    --accent: #f97316;
+    --dark: #f0f1f5;
+    --muted: #f3f4f5;
+    --bg: #eeeff3;
+    --card: #f0f1f3;
+    --stroke: #f4f4f5;
+    --success: #f9fcfa;
+    --danger: #ef4444;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgb(243, 245, 248);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: #01060c;
+    background: radial-gradient(1000px 600px at 10% 0%, #f0f1f3, #dee0e6 50%) fixed;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+    font: inherit;
+}
+
+input,
+select {
+    font: inherit;
+}
+
+.topbar {
+    background: linear-gradient(90deg, var(--primary) 0%, #22d3ee 60%, #fa8b8b 100%);
+    color: #0b1020;
+    padding: 8px 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(236, 237, 240, .986);
+    border-bottom: 1px solid var(--stroke);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.logo-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, var(--primary), #22d3ee);
+    box-shadow: var(--shadow);
+}
+
+.search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #f3f3f5;
+    border: 1px solid var(--stroke);
+    border-radius: 999px;
+    padding: 8px 12px;
+}
+
+.search input {
+    flex: 1;
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: #0b1020;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), #22c55e);
+    border: 0;
+    color: #0b1020;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hotline {
+    font-weight: 700;
+    color: #000311;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #4772e7;
+    color: #fff;
+    border: 1px solid var(--stroke);
+    padding: 8px 12px;
+    border-radius: 999px;
+}
+
+.nav {
+    border-top: 1px solid var(--stroke);
+    border-bottom: 1px solid var(--stroke);
+    background: rgba(249, 250, 250, .997);
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    color: #000;
+}
+
+.nav a:hover,
+.nav a.active {
+    border-color: var(--stroke);
+    color: #000;
+    background: rgba(0, 0, 0, .04);
+}
+
+.hero {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: #f2f2f6;
+    border: 1px solid var(--stroke);
+}
+
+.banner .slides {
+    display: flex;
+    transition: transform .5s ease;
+}
+
+.banner .slide {
+    min-width: 100%;
+    aspect-ratio: 16/7;
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.banner .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px 260px at 100%,
+            rgba(255, 255, 255, .979), transparent 0%);
+}
+
+.banner h2 {
+    font-size: clamp(24px, 4vw, 42px);
+    margin: 0;
+    text-align: center;
+}
+
+.banner p {
+    color: #0a1124;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.banner .dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #334155;
+    border: 1px solid var(--stroke);
+}
+
+.dot.active {
+    background: #e2e8f0;
+}
+
+.promo {
+    display: grid;
+    gap: 16px;
+}
+
+.promo .card {
+    border-radius: var(--radius);
+    background: #f6f6f8;
+    border: 1px solid var(--stroke);
+    padding: 18px;
+    min-height: 140px;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo .card h3 {
+    margin: 0 0 6px;
+}
+
+.promo .card small {
+    color: #6b7280;
+}
+
+.toolbar {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    padding: 0 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    border: 1px solid var(--stroke);
+    background: #fff;
+    color: #0a1124;
+    padding: 8px 12px;
+    border-radius: 999px;
+}
+
+.chip.active {
+    outline: 2px solid var(--primary);
+    color: #0a1124;
+}
+
+.sort {
+    border: 1px solid var(--stroke);
+    background: #fff;
+    color: #0a1124;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+.products {
+    max-width: 1200px;
+    margin: 16px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.product {
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, #f8fafc, #7d98e1);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.product:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.thumb {
+    aspect-ratio: 1/1;
+    background: radial-gradient(200px 120px at 60% 20%, rgba(232, 235, 236, 0.15), transparent 60%), radial-gradient(200px 120px at 30% 80%, rgba(234, 179, 8, .12), transparent 60%);
+    display: grid;
+    place-items: center;
+}
+
+.thumb svg {
+    width: 64px;
+    height: 64px;
+    opacity: .9;
+}
+
+.p-body {
+    padding: 12px;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--accent);
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.title {
+    font-weight: 700;
+    margin: 6px 0 4px;
+}
+
+.brand {
+    color: #a5b4fc;
+    font-size: 13px;
+}
+
+.price {
+    margin-top: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.price .new {
+    font-weight: 900;
+    font-size: 18px;
+    color: #f8fafc;
+}
+
+.price .old {
+    color: #64748b;
+    text-decoration: line-through;
+    font-size: 13px;
+}
+
+.p-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--stroke);
+    color: #0b1020;
+    padding: 8px 10px;
+    border-radius: 12px;
+}
+
+/* Trang chi tiết sản phẩm */
+.detail {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+}
+
+.detail .card {
+    border: 1px solid var(--stroke);
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.size-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.size-option {
+    border: 1px solid var(--stroke);
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.size-option.active {
+    outline: 2px solid #22c55e;
+    font-weight: 700;
+}
+
+.qty-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.qty-row button {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--stroke);
+    background: #0b1328;
+    color: #e2e8f0;
+}
+
+.backlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.detail .title {
+    font-size: 22px;
+}
+
+/* Drawer giỏ hàng */
+.cart-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(420px, 100%);
+    background: #f8f9fa;
+    border-left: 1px solid var(--stroke);
+    transform: translateX(100%);
+    transition: transform .3s ease;
+    z-index: 60;
+    display: grid;
+    grid-template-rows:
+        auto 1fr auto;
+}
+
+.cart-drawer.open {
+    transform: translateX(0);
+}
+
+.cart-head,
+.cart-foot {
+    padding: 16px;
+    border-bottom: 1px solid var(--stroke);
+}
+
+.cart-foot {
+    border-bottom: 0;
+    border-top: 1px solid var(--stroke);
+}
+
+.cart-items {
+    padding: 12px 16px;
+    overflow: auto;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--stroke);
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty button {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid var(--stroke);
+    background: #0b1328;
+    color: #e2e8f0;
+}
+
+footer {
+    margin-top: 40px;
+    border-top: 1px solid var(--stroke);
+    background: rgba(253, 253, 253, .997);
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 20px;
+}
+
+.ft-col h4 {
+    margin: 0 0 10px;
+}
+
+.newsletter {
+    display: flex;
+    gap: 8px;
+}
+
+.newsletter input {
+    flex: 1;
+    border-radius: 12px;
+    border: 1px solid var(--stroke);
+    background: #e2e8f0;
+    color: #0a1124;
+    padding: 10px 12px;
+}
+
+@media (max-width:980px) {
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-inner {
+        grid-template-columns: 1fr auto;
+    }
+
+    .logo {
+        grid-column: 1/-1;
+    }
+
+    .detail {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:600px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 👤 NÚT ICON ĐĂNG NHẬP */
+.login-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-icon:hover {
+    background: #e2e8f0;
+}
+
+.login-icon img {
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* giãn cách giữa giỏ hàng và icon người */
+    position: relative;
+}
+
+.header-actions>* {
+    pointer-events: auto;
+}
+
+/* Nút giỏ hàng (pill xanh) – giới hạn hit-area, tránh đè sang icon người */
+.icon-btn {
+    position: relative;
+    /* để z-index hoạt động đúng */
+    z-index: 1;
+    /* nằm dưới icon người */
+    padding: 10px 14px;
+    /* kích thước gọn vừa */
+    line-height: 1;
+    border-radius: 9999px;
+    /* nếu có rule nào khác làm to/đẩy lệch (transform, absolute, margin âm) thì bỏ/ghi đè ở đây */
+}
+
+/* Icon người (nút đăng nhập) – luôn nổi trên giỏ hàng và có kích thước cố định */
+.login-icon {
+    position: relative;
+    z-index: 2;
+    /* trên .icon-btn để không bị che */
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    /* không bị co giãn khi header hẹp */
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s;
+    border: 1px solid var(--stroke);
+    /* viền nhẹ cho rõ ranh giới */
+}
+
+.login-icon:hover {
+    background: #e2e8f0;
+}
+
+.login-icon svg,
+.login-icon img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* (Tuỳ chọn) Nếu cart có badge số lượng dùng position tuyệt đối, giữ trong phạm vi nút */
+.icon-btn .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    border: 2px solid #fff;
+}
+
+.icon-btn {
+    z-index: 1;
+}
+
+.login-icon {
+    z-index: 2;
+}
+
+/* Trang đăng nhập riêng */
+.auth-page {
+    min-height: calc(100dvh - 140px);
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+}
+
+.auth-card {
+    width: min(420px, 100%);
+    background: #fff;
+    border: 3px solid var(--primary);
+    /* viền màu */
+    color: #000;
+    /* chữ đen */
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+.auth-card h2 {
+    margin: 0 0 12px;
+    text-align: center;
+    color: #000;
+}
+
+.auth-card label {
+    display: block;
+    margin: 10px 0 6px;
+    font-weight: 600;
+    color: #000;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid var(--primary);
+    border-radius: 10px;
+    color: #000;
+    background: #fff;
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: var(--primary-600);
+    box-shadow: 0 0 4px var(--primary-600);
+}
+
+.register-note {
+    text-align: center;
+    font-size: 14px;
+    color: #000;
+}
+
+.register-note a {
+    color: var(--primary-600);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-note a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+.login-icon {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-icon:hover {
+  background: #e2e8f0;
+}
+
+.login-icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.header-actions{
+  display: flex;
+  align-items: center;
+  gap: 12px;              /* giãn cách giữa giỏ hàng và icon người */
+  position: relative;
+}
+.header-actions > * { pointer-events: auto; }
+
+/* Nút giỏ hàng (pill xanh) – giới hạn hit-area, tránh đè sang icon người */
+.icon-btn{
+  position: relative;     /* để z-index hoạt động đúng */
+  z-index: 1;             /* nằm dưới icon người */
+  padding: 10px 14px;     /* kích thước gọn vừa */
+  line-height: 1;
+  border-radius: 9999px;
+  /* nếu có rule nào khác làm to/đẩy lệch (transform, absolute, margin âm) thì bỏ/ghi đè ở đây */
+}
+
+/* Icon người (nút đăng nhập) – luôn nổi trên giỏ hàng và có kích thước cố định */
+.login-icon{
+  position: relative;
+  z-index: 2;             /* trên .icon-btn để không bị che */
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;         /* không bị co giãn khi header hẹp */
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .2s;
+  border: 1px solid var(--stroke);   /* viền nhẹ cho rõ ranh giới */
+}
+.login-icon:hover{ background:#e2e8f0; }
+.login-icon svg, .login-icon img{
+  width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+}
+
+/* (Tuỳ chọn) Nếu cart có badge số lượng dùng position tuyệt đối, giữ trong phạm vi nút */
+.icon-btn .cart-count{
+  position: absolute;
+  top: -6px; right: -6px;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #ef4444; color: #fff;
+  font-size: 12px; line-height: 18px;
+  border: 2px solid #fff;
+}
+
+.icon-btn { z-index: 1; }
+.login-icon { z-index: 2; }
+
+/* Trang đăng nhập riêng */
+.auth-page{
+  min-height: calc(100dvh - 140px);
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+.auth-card{
+  width: min(420px, 100%);
+  background: #fff;
+  border: 3px solid var(--primary);     /* viền màu */
+  color: #000;                          /* chữ đen */
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+.auth-card h2{ margin: 0 0 12px; text-align:center; color:#000; }
+.auth-card label{ display:block; margin: 10px 0 6px; font-weight:600; color:#000; }
+.auth-card input{
+  width:100%; padding:10px; border:1.5px solid var(--primary);
+  border-radius:10px; color:#000; background:#fff;
+}
+.auth-card input:focus{ outline:none; border-color: var(--primary-600); box-shadow: 0 0 4px var(--primary-600); }
+.register-note{ text-align:center; font-size:14px; color:#000; }
+.register-note a{ color: var(--primary-600); font-weight:600; text-decoration:none; }
+.register-note a:hover{ text-decoration:underline; }
+
+/* Container chính, cần 'position: relative' để định vị menu con */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Kiểu cho nút kích hoạt "Xin chào..." */
+.user-menu-trigger {
+    cursor: pointer; /* Biến con trỏ chuột thành hình bàn tay */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa tên và mũi tên */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Thay đổi màu nền nhẹ khi di chuột qua */
+.user-menu-trigger:hover {
+    background-color: #f0f0f0;
+}
+
+/* Kiểu cho mũi tên */
+.dropdown-arrow {
+    font-size: 0.7em; /* Cho mũi tên nhỏ lại */
+}
+
+/* Menu thả xuống (mặc định ẩn) */
+.dropdown-menu {
+    display: none; /* QUAN TRỌNG: Mặc định ẩn */
+    position: absolute;
+    right: 0; /* Căn lề phải */
+    top: 100%; /* Hiển thị ngay bên dưới nút kích hoạt */
+    background-color: white;
+    min-width: 180px; /* Độ rộng tối thiểu cho menu */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10; /* Luôn nằm trên cùng */
+    border-radius: 5px;
+    overflow: hidden; /* Đảm bảo các link bên trong cũng bo góc */
+}
+
+/* Các link <a> bên trong menu thả xuống */
+.dropdown-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* Mỗi link chiếm 1 hàng */
+}
+
+/* Đổi màu nền khi di chuột qua từng mục menu */
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Lớp 'show' này sẽ được JavaScript thêm/xóa để ẩn/hiện menu */
+.dropdown-menu.show {
+    display: block; /* QUAN TRỌNG: Hiển thị menu */
+}
