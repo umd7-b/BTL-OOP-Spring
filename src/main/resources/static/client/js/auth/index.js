@@ -1,5 +1,5 @@
 
-console.log("✅ File auth.js đã được load!");
+console.log("✅ File auth.js đã được load! ✅ ");
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("loginForm");

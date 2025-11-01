@@ -1,6 +1,6 @@
 
 
-console.log("da ket noi voi js")
+console.log("da ket noi voi js oke oke")
 document.addEventListener("DOMContentLoaded", () => {
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {

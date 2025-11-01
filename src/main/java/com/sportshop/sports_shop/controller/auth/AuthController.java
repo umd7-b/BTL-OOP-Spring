@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -132,6 +133,18 @@ public class AuthController {
             return ResponseEntity.internalServerError().body(response);
         }
     }
+
+
+    @GetMapping("/api/auth/me")
+        @ResponseBody
+        public ResponseEntity<?> getCurrentUser(HttpSession session) {
+            KhachHang kh = (KhachHang) session.getAttribute("khachHang");
+            if (kh != null) {
+                return ResponseEntity.ok(kh); // Trả về thông tin user nếu còn
+            }
+            // Trả về lỗi 401 nếu không có ai trong session
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Chưa đăng nhập");
+        }
 
     // ======= XỬ LÝ ĐĂNG XUẤT (POST) =======
     @PostMapping("/logout")

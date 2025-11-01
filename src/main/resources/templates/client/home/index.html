@@ -9,14 +9,27 @@
   </head>
   <body>
     <div class="topbar">
-      Miễn phí vận chuyển đơn từ 599k • Đổi size trong 7 ngày • Hotline: 0 123
-      456 789
+      Miễn phí vận chuyển đơn từ 599k • Đổi size trong 7 ngày • Hotline: 0988 888 888
     </div>
     <header>
       <div class="header-inner">
-        <a class="logo" href="#" aria-label="Trang chủ"
-          ><span class="logo-dot"></span><span>Lowtech Store</span></a
-        >
+        <a class="logo" href="#" aria-label="Trang chủ" 
+   style="display: flex; align-items: center; text-decoration: none;">
+    
+          <img th:src="@{/client/images/logo.png}" 
+              alt="Lowtech Store Logo" 
+              style="height: 40px; 
+                      width: 40px; /* Thêm width để ảnh vuông vắn trước khi bo tròn */
+                      border-radius: 50%; /* Đây là code làm tròn ảnh */
+                      object-fit: cover; /* Giúp ảnh không bị méo */
+                      " />
+          
+          <span style="font-size: 16px; font-weight: bold; margin-left: 10px; color: #000;">
+              Lowtech Store
+          </span>
+          
+
+      </a>
         <div class="search" role="search">
           <svg
             width="18"
@@ -39,7 +52,7 @@
           <button class="btn-primary" id="searchBtn">Tìm</button>
         </div>
         <div class="header-actions">
-          <div class="hotline">📞 0 123 456 789</div>
+          <div class="hotline">📞 0988 888 888</div>
           <button class="icon-btn" id="openCart" aria-label="Mở giỏ hàng">
             <svg
               width="18"
@@ -281,7 +294,7 @@
         <div class="ft-col">
           <h4>Liên hệ</h4>
           <p>
-            Hotline: 0 123 456 789<br />Email: support@LTStore.vn<br />CSKH:
+            Hotline: 0988 888 888<br />Email: support@LTStore.vn<br />CSKH:
             8:00 – 22:00
           </p>
         </div>
@@ -296,49 +309,136 @@
     </footer>
    <script th:src="@{/client/js/home/index.js}"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const loginBtn = document.getElementById("loginBtn");
-        const username = sessionStorage.getItem("username");
-        const hoTen = sessionStorage.getItem("ho_ten");
+      document.addEventListener("DOMContentLoaded", async function () {
 
-        if (username && hoTen) {
-          loginBtn.outerHTML = `
-        <div class="user-menu-container">
+    try {
+        // Gửi một request để "kiểm tra" server
+        const response = await fetch('/api/auth/me');
 
-            <div id="userMenuTrigger" class="user-menu-trigger">
-                <span>👤 Xin chào, <strong>${hoTen}</strong></span>
-                <span class="dropdown-arrow">▼</span>
-            </div>
+        if (response.ok) {
+            // Server trả về OK, nghĩa là session VẪN CÒN
+            const user = await response.json();
 
-            <div id="userDropdownMenu" class="dropdown-menu">
-                <a href="/profile">Thông tin cá nhân</a>
-                <a href="/cart">Giỏ hàng</a>
-                <a href="#" id="logoutBtn">Đăng xuất</a>
-            </div>
+ 
+            const username = user.tenDangNhap || user.username || user.ten_dang_nhap;
+            const hoTen = user.hoTen || user.ho_ten;
 
+            if (!hoTen) {
+                console.error("Không tìm thấy 'hoTen' hay 'ho_ten' trong user object:", user);
+                sessionStorage.clear();
+                renderLoginButton();
+                return;
+            }
+
+            // Cập nhật lại sessionStorage cho chắc
+            sessionStorage.setItem("username", username); 
+            sessionStorage.setItem("ho_ten", hoTen);
+
+            // Gọi hàm hiển thị menu user
+            renderUserMenu(hoTen);
+
+        } else {
+            // Server trả về lỗi (ví dụ 401), nghĩa là session ĐÃ MẤT
+            // Đây là trường hợp server vừa restart
+            sessionStorage.clear(); // Xóa sạch thông tin cũ ở client
+            renderLoginButton(); // Hiển thị lại nút Login
+        }
+
+    } catch (error) {
+        // Có lỗi (ví dụ server tắt hẳn), cũng coi như đã đăng xuất
+        console.error("Không thể kết nối server:", error);
+        sessionStorage.clear();
+        renderLoginButton();
+    }
+});
+
+// Hàm vẽ menu user
+function renderUserMenu(hoTen) {
+    const loginBtn = document.getElementById("loginBtn");
+    if (!loginBtn) return; // Nếu đã có menu rồi thì thôi
+
+ loginBtn.outerHTML = `
+<div class="user-menu-container">
+ <div id="userMenuTrigger" class="user-menu-trigger">
+ <span>👤 Xin chào, <strong>${hoTen}</strong></span>
+<span class="dropdown-arrow">▼</span>
+ </div>
+ <div id="userDropdownMenu" class="dropdown-menu">
+ <a href="/profile">Thông tin cá nhân</a>
+<a href="/cart">Giỏ hàng</a>
+ <a href="#" id="logoutBtn">Đăng xuất</a>
+ </div>
+ </div>`;
+
+  
+    addMenuListeners(); // Gắn lại event cho menu mới
+}
+
+// ==========================================================
+// SỬA LỖI 2: VIẾT CODE CHO HÀM RENDER NÚT LOGIN
+// ==========================================================
+function renderLoginButton() {
+    // Tìm container (có thể nó đang là menu user)
+    const menuContainer = document.querySelector(".user-menu-container");
+
+    // Nếu tìm thấy menu (tức là user CẦN logout) -> thay thế nó
+    if(menuContainer) {
+        menuContainer.outerHTML = `
+            <div id="loginBtn" class="login-icon">
+        <imgsrc="https://th.bing.com/th/id/R.f58bd7f73934e1145c97570943087ec6?rik=41HmRGohn%2fnBJg&riu=http%3a%2f%2fwww.acsoft.vn%3a8081%2fresources%2fimages%2favatar.jpg&ehk=4oftGWjeo8XsGu%2fcHG2dUJubsKryVLuNa58H9D3TNKA%3d&risl=&pid=ImgRaw&r=0"
+          alt="user"
+          />
+        <span class="notify-dot"></span>
         </div>
-      `;
+        `;
+    }
+    
+    // Gắn event click cho nút login (dù là mới hay cũ)
+    const loginBtn = document.getElementById("loginBtn");
+    if(loginBtn) {
+        loginBtn.addEventListener("click", () => {
+            window.location.href = "/login";
+        });
+    }
+}
 
-          const menuTrigger = document.getElementById("userMenuTrigger");
-          const dropdownMenu = document.getElementById("userDropdownMenu");
 
-          if (menuTrigger && dropdownMenu) {
-            menuTrigger.addEventListener("click", (event) => {
-              event.stopPropagation();
+function addMenuListeners() {
+    const menuTrigger = document.getElementById("userMenuTrigger");
+    const dropdownMenu = document.getElementById("userDropdownMenu");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-              dropdownMenu.classList.toggle("show");
-            });
-          }
+    if (menuTrigger && dropdownMenu) {
+        menuTrigger.addEventListener("click", (event) => {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("show");
+        });
+    }
 
-          document.addEventListener("click", (e) => {
-            if (e.target && e.target.id === "logoutBtn") {
-              sessionStorage.clear();
-              window.location.reload(); 
+    // Đóng menu khi click ra ngoài
+    window.addEventListener("click", (e) => {
+        // Phải kiểm tra menuTrigger có tồn tại không
+        if (menuTrigger && dropdownMenu && dropdownMenu.classList.contains("show") && !menuTrigger.contains(e.target)) {
+             dropdownMenu.classList.remove("show");
+        }
+    });
+
+  
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            try {
+                await fetch('/logout', { method: 'POST' }); 
+            } catch (err) {
+                console.error("Lỗi gọi API logout, nhưng vẫn tiến hành logout client", err);
+            } finally {
+                sessionStorage.clear();
+                window.location.reload();
             }
-          });
-        }
-      });
-    </script>
+        });
+    }
+}
+    </script>
 
   </body>
 </html>
