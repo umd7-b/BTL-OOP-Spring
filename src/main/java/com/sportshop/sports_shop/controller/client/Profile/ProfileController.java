@@ -1,4 +1,4 @@
-package com.sportshop.sports_shop.controller.Profile;
+package com.sportshop.sports_shop.controller.client.Profile;
 
 import java.util.HashMap;
 import java.util.Map;

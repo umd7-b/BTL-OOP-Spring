@@ -1,4 +1,4 @@
-package com.sportshop.sports_shop.controller.auth;
+package com.sportshop.sports_shop.controller.client.auth;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;

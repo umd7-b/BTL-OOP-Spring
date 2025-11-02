@@ -8,6 +8,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index() {
-        return "client/home/index"; // Sẽ trả về file "index.html" trong thư mục "templates"
+        return "client/home/index";
     }
 }
