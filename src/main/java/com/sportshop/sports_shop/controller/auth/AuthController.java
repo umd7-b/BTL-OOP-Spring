@@ -145,6 +145,66 @@ public class AuthController {
             // Trả về lỗi 401 nếu không có ai trong session
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Chưa đăng nhập");
         }
+        // ======= TRANG LOGIN ADMIN (HTML VIEW) =======
+
+        @GetMapping("/login/admin")
+        public String adminLoginPage() {
+            return "admin/auth/login"; // -> /templates/admin/auth/login.html
+        }
+
+// ======= XỬ LÝ ĐĂNG NHẬP ADMIN (POST) =======
+@PostMapping("/login/admin")
+@ResponseBody
+public ResponseEntity<?> loginAdmin(@RequestBody Map<String, String> loginData, HttpSession session) {
+    try {
+        String username = loginData.get("username");
+        String password = loginData.get("password");
+
+        // Kiểm tra đầu vào
+        if (username == null || username.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Vui lòng nhập tên đăng nhập!"));
+        }
+        if (password == null || password.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Vui lòng nhập mật khẩu!"));
+        }
+
+        // Kiểm tra tài khoản cố định
+        if (!"admin".equals(username) || !"123456".equals(password)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                                 .body(Map.of("message", "Tên đăng nhập hoặc mật khẩu không chính xác!"));
+        }
+
+        // Lưu trạng thái admin vào session
+        session.setAttribute("isAdmin", true);
+        session.setAttribute("adminUsername", username);
+
+        // Trả về thông báo + URL chuyển hướng
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Đăng nhập quản trị thành công!");
+        response.put("redirect", "/admin/dashboard");
+
+        return ResponseEntity.ok(response);
+
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError()
+                .body(Map.of("message", "Lỗi server: " + e.getMessage()));
+    }
+}   
+// ======= TRANG DASHBOARD ADMIN =======
+@GetMapping("/admin/dashboard")
+public String adminDashboard(HttpSession session) {
+    Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+    // Nếu chưa đăng nhập admin → quay về trang login
+    if (isAdmin == null || !isAdmin) {
+        return "redirect:/login/admin";
+    }
+
+    // Nếu đã đăng nhập admin → hiển thị dashboard
+    return "admin/dashboard/index"; // templates/admin/dashboard/index.html
+}
+
+
 
     // ======= XỬ LÝ ĐĂNG XUẤT (POST) =======
     @PostMapping("/logout")

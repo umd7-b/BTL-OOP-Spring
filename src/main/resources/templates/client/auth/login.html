@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Đăng nhập</title>
-  <link th:href="@{/client/css/auth/login.css}" rel="stylesheet" />
-</head>
-<body>
+  <!DOCTYPE html>
+  <html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <link th:href="@{/client/css/auth/login.css}" rel="stylesheet" />
+  </head>
+  <body>
 
-    <form id="loginForm">
-    <h1>Đăng nhập</h1>
-    <input type="text" name="username" placeholder="Tên tài khoản" required /><br>
-    <input type="password" name="password" placeholder="Mật khẩu" required /><br>
-    <button type="submit">Đăng nhập</button>
-    <p id="message"></p>
-    <p>Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
-  </form>
- 
-    <script src = "/client/js/auth/login.js"></script>
-</body>
-</html>
+      <form id="loginForm">
+      <h1>Đăng nhập</h1>
+      <input type="text" name="username" placeholder="Tên tài khoản" required /><br>
+      <input type="password" name="password" placeholder="Mật khẩu" required /><br>
+      <button type="submit">Đăng nhập</button>
+      <p id="message"></p>
+      <p>Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
+    </form>
+   
+      <script src = "/client/js/auth/index.js"></script>
+  </body>
+  </html>
