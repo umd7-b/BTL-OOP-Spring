@@ -145,6 +145,10 @@ public class AuthController {
             // Trả về lỗi 401 nếu không có ai trong session
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Chưa đăng nhập");
         }
+        // ======= TRANG LOGIN ADMIN (HTML VIEW) =======
+
+        
+
 
     // ======= XỬ LÝ ĐĂNG XUẤT (POST) =======
     @PostMapping("/logout")

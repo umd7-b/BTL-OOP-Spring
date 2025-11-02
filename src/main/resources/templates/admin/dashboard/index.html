@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" th:href="@{/admin/css/dashboard/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/dashboard/dropdown.css}">
 </head>
 <body>
     <div class="container">
@@ -43,9 +44,19 @@
         <div class="main-content">
             <div class="header">
                 <h1>Dashboard</h1>
-                <div class="user-info">
+                <div class="user-info" onclick="toggleDropdown(event)">
                     <span>Admin User</span>
                     <div class="user-avatar">A</div>
+                    <span class="dropdown-arrow">▼</span>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="dropdown-item logout" onclick="handleLogout(event)">
+                            <span class="dropdown-icon">🚪</span>
+                            <span>Đăng xuất</span>
+                            <span class="logout-spinner" id="logoutSpinner"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -136,24 +147,6 @@
         </div>
     </div>
 
-    <script>
-        function showSection(section) {
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => item.classList.remove('active'));
-            
-            event.target.closest('.menu-item').classList.add('active');
-            
-            const titles = {
-                'dashboard': 'Dashboard',
-                'users': 'Quản lý người dùng',
-                'products': 'Quản lý sản phẩm',
-                'orders': 'Quản lý đơn hàng',
-                'analytics': 'Thống kê & Báo cáo',
-                'settings': 'Cài đặt hệ thống'
-            };
-            
-            document.querySelector('.header h1').textContent = titles[section];
-        }
-    </script>
+    <script th:src="@{/admin/js/auth.js}"></script>
 </body>
 </html>
