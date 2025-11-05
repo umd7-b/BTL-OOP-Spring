@@ -50,7 +50,7 @@ public class ProfileController {
         }
         
         // Lấy thông tin mới nhất từ database
-        KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang()).orElse(null);
+        KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang().intValue()).orElse(null);
         
         if (user == null) {
             Map<String, Object> response = new HashMap<>();
@@ -91,7 +91,7 @@ public class ProfileController {
         }
         
         try {
-            KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang()).orElse(null);
+            KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang().intValue()).orElse(null);
             
             if (user == null) {
                 Map<String, String> response = new HashMap<>();
@@ -163,7 +163,7 @@ public class ProfileController {
                 return ResponseEntity.badRequest().body(response);
             }
             
-            KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang()).orElse(null);
+            KhachHang user = khachHangRepository.findById(khachHang.getMaKhachHang().intValue()).orElse(null);
             
             if (user == null) {
                 Map<String, String> response = new HashMap<>();

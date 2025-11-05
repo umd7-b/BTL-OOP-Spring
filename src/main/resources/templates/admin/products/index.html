@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sản phẩm - Admin</title>
+    <link rel="stylesheet" th:href="@{/admin/css/products/index.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>🎯 Admin Panel</h2>
+            </div>
+            <div class="menu-item" th:onclick="|window.location.href='@{/admin/dashboard}'|">
+                <i>📊</i>
+                <span>Dashboard</span>
+            </div>
+            <div class="menu-item" th:onclick="|window.location.href='@{/admin/users}'|">
+                <i>👥</i>
+                <span>Người dùng</span>
+            </div>
+            <div class="menu-item active" th:onclick="|window.location.href='@{/admin/products}'|">
+                <i>📦</i>
+                <span>Sản phẩm</span>
+            </div>
+            <div class="menu-item" th:onclick="|window.location.href='@{/admin/orders}'|">
+                <i>🛒</i>
+                <span>Đơn hàng</span>
+            </div>
+            <div class="menu-item" th:onclick="|window.location.href='@{/admin/analytics}'|">
+                <i>📈</i>
+                <span>Thống kê</span>
+            </div>
+            <div class="menu-item" th:onclick="|window.location.href='@{/admin/settings}'|">
+                <i>⚙️</i>
+                <span>Cài đặt</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Quản lý Sản phẩm</h1>
+                <div class="user-info" onclick="toggleDropdown(event)">
+                    <span>Admin User</span>
+                    <div class="user-avatar">A</div>
+                    <span class="dropdown-arrow">▼</span>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="dropdown-item logout" onclick="handleLogout(event)">
+                            <span class="dropdown-icon">🚪</span>
+                            <span>Đăng xuất</span>
+                            <span class="logout-spinner" id="logoutSpinner"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Stats Cards with Add Buttons -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-header">
+                            <h3>Tổng Sản phẩm</h3>
+                            <button class="btn-add" onclick="openAddModal('product')" title="Thêm sản phẩm">
+                                <span>+</span>
+                            </button>
+                        </div>
+                        <div class="number" id="totalProducts" th:text="${totalProducts}">0</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-header">
+                            <h3>Tổng Thương hiệu</h3>
+                            <button class="btn-add" onclick="openAddModal('brand')" title="Thêm thương hiệu">
+                                <span>+</span>
+                            </button>
+                        </div>
+                        <div class="number" id="totalBrands" th:text="${totalBrands}">0</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <div class="stat-header">
+                            <h3>Tổng Danh mục</h3>
+                            <button class="btn-add" onclick="openAddModal('category')" title="Thêm danh mục">
+                                <span>+</span>
+                            </button>
+                        </div>
+                        <div class="number" id="totalCategories" th:text="${totalCategories}">0</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-header">
+                            <h3>Tổng Môn thể thao</h3>
+                            <button class="btn-add" onclick="openAddModal('sport')" title="Thêm môn thể thao">
+                                <span>+</span>
+                            </button>
+                        </div>
+                        <div class="number" id="totalSports" th:text="${totalSports}">0</div>
+                    </div>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterProducts()">
+                        <select id="brandFilter" onchange="filterProducts()">
+                            <option value="">Tất cả thương hiệu</option>
+                            <option th:each="brand : ${brands}" 
+                                    th:value="${brand.maThuongHieu}" 
+                                    th:text="${brand.tenThuongHieu}"></option>
+                        </select>
+                        <select id="categoryFilter" onchange="filterProducts()">
+                            <option value="">Tất cả danh mục</option>
+                            <option th:each="category : ${categories}" 
+                                    th:value="${category.maDanhMuc}" 
+                                    th:text="${category.tenDanhMuc}"></option>
+                        </select>
+                        <select id="sportFilter" onchange="filterProducts()">
+                            <option value="">Tất cả môn thể thao</option>
+                            <option th:each="sport : ${sports}" 
+                                    th:value="${sport.maMonTheThao}" 
+                                    th:text="${sport.tenMonTheThao}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="data-table">
+                    <h2>Danh sách Sản phẩm</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã SP</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Thương hiệu</th>
+                                <th>Danh mục</th>
+                                <th>Môn thể thao</th>
+                                <th>Giá gốc</th>
+                                <th>Giá KM</th>
+                                <th>Số lượng</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <tr th:each="product : ${products}">
+                                <td th:text="${product.maSp}"></td>
+                                <td>
+                                    <div class="product-image">
+                                        <img th:if="${product.danhSachAnh != null && !#lists.isEmpty(product.danhSachAnh)}" 
+                                             th:src="@{'/uploads/products/' + ${product.danhSachAnh[0].linkAnh}}" 
+                                             alt="Product Image"
+                                             onerror="this.parentElement.innerHTML='📦'"
+                                             style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                                        <span th:unless="${product.danhSachAnh != null && !#lists.isEmpty(product.danhSachAnh)}">📦</span>
+                                    </div>
+                                </td>
+                                <td th:text="${product.tenSp}"></td>
+                                <td th:text="${product.thuongHieu?.tenThuongHieu}"></td>
+                                <td th:text="${product.danhMuc?.tenDanhMuc}"></td>
+                                <td th:text="${product.monTheThao?.tenMonTheThao}"></td>
+                                <td th:text="${#numbers.formatDecimal(product.giaGoc, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
+                                <td th:text="${product.giaKm != null ? #numbers.formatDecimal(product.giaKm, 0, 'POINT', 0, 'COMMA') + ' đ' : '-'}"></td>
+                                    <td th:text="${product.tongSoLuongTon}"></td>
+
+                                <td>
+                                    <button class="btn btn-primary" th:onclick="|editProduct('${product.maSp}')|">Sửa</button>
+                                    <button class="btn btn-danger" th:onclick="|deleteProduct('${product.maSp}')|">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(products)}">
+                                <td colspan="10" style="text-align: center; padding: 40px;">
+                                    Không có sản phẩm nào
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Product -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddModal()">&times;</span>
+            <h2 id="modalTitle">Thêm mới</h2>
+            <form id="addForm" method="post" enctype="multipart/form-data">
+                <div id="formFields"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script th:src="@{/admin/js/auth.js}"></script>
+    <script th:src="@{/admin/js/products/index.js}"></script>
+</body>
+</html>

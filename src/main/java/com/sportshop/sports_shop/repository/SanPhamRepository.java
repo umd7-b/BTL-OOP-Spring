@@ -1,11 +1,20 @@
 package com.sportshop.sports_shop.repository;
 
-import com.sportshop.sports_shop.model.SanPham;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-// Kế thừa JpaRepository với Entity là SanPham và kiểu dữ liệu của ID là Integer
+import com.sportshop.sports_shop.model.SanPham;
+
 @Repository
-public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
-    // Spring Data JPA sẽ tự động cung cấp các hàm CRUD cơ bản (save, findById, findAll,...)
+public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
+
+    List<SanPham> findByTenSpContainingIgnoreCase(String keyword);
+
+    List<SanPham> findByThuongHieuMaThuongHieu(Integer maThuongHieu);
+
+    List<SanPham> findByDanhMucMaDanhMuc(Integer maDanhMuc);
+
+    List<SanPham> findByMonTheThaoMaMonTheThao(Integer maMonTheThao);
 }

@@ -7,9 +7,6 @@ import com.sportshop.sports_shop.model.DanhMuc;
 
 @Repository
 public interface DanhMucRepository extends JpaRepository<DanhMuc, Integer> {
-    // Spring Data JPA sẽ tự động tạo các hàm cơ bản như 
-    // findAll(), findById(), save()...
-    
-    // (Lưu ý: Tôi đang dùng "Integer" làm kiểu ID, 
-    // vì file SanPham.java của bạn dùng "Integer maSp").
+    DanhMuc findByTenDanhMuc(String ten);
+    boolean existsByTenDanhMuc(String ten);
 }

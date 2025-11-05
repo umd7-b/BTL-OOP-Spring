@@ -29,10 +29,10 @@ public class AuthAdminController {
             return "redirect:/admin/dashboard";
         }
     }
-    // ============================================
 
 
-    // ======= TRANG LOGIN ADMIN (HTML VIEW) =======
+
+   
     @GetMapping("/admin/login")
     public String adminLoginPage() {
         return "admin/auth/login"; // templates/admin/auth/login.html

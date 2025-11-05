@@ -1,16 +1,29 @@
 package com.sportshop.sports_shop.model;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
-import lombok.Getter; 
-import lombok.Setter; 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "SAN_PHAM")
-@Getter
-@Setter 
+@Table(name = "san_pham")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class SanPham {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ma_sp")
@@ -28,41 +41,68 @@ public class SanPham {
     @Column(name = "gia_km", precision = 10, scale = 2)
     private BigDecimal giaKm;
 
-    @Column(name = "so_luong_ton")
-    private Integer soLuongTon;
-
-    // ... (Giữ nguyên các mối quan hệ @ManyToOne) ...
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ma_thuong_hieu", nullable = false)
-    private ThuongHieu thuongHieu;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ma_danh_muc", nullable = false)
-    private DanhMuc danhMuc;
-    
-    // ... (Giữ nguyên các trường còn lại) ...
-    @Column(name = "kich_thuoc", length = 20)
-    private String kichThuoc;
-
-    @Column(name = "mau_sac", length = 50)
-    private String mauSac;
-
     @Column(name = "ngay_them")
     private LocalDateTime ngayThem;
-    
-    @Column(name = "luot_xem")
-    private Integer luotXem;
 
-    @Column(name = "diem_tb")
-    private Float diemTb;
+    @ManyToOne
+    @JoinColumn(name = "ma_thuong_hieu")
+    private ThuongHieu thuongHieu;
 
-    @Transient // Báo cho JPA biết đây KHÔNG PHẢI là một cột trong DB
-    public BigDecimal getGiaBan() {
-        // Nếu giaKm có giá trị (khác null) VÀ lớn hơn 0
-        if (this.giaKm != null && this.giaKm.compareTo(BigDecimal.ZERO) > 0) {
-            return this.giaKm; // Thì giá bán là giá khuyến mãi
+    @ManyToOne
+    @JoinColumn(name = "ma_danh_muc")
+    private DanhMuc danhMuc;
+    @Column(name = "so_luong", nullable = false)
+        private Integer soLuong = 0; // default 0
+
+        public Integer getSoLuong() {
+            return soLuong;
         }
-        // Ngược lại, giá bán là giá gốc
-        return this.giaGoc;
+
+        public void setSoLuong(Integer soLuong) {
+            this.soLuong = soLuong;
+        }
+
+
+    @ManyToOne
+    @JoinColumn(name = "ma_mon_the_thao")
+    private MonTheThao monTheThao;
+
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BienTheSanPham> bienThe;
+
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AnhSanPham> danhSachAnh;
+    public List<AnhSanPham> getDanhSachAnh() {
+    return danhSachAnh;
+}
+
+public void setDanhSachAnh(List<AnhSanPham> danhSachAnh) {
+    this.danhSachAnh = danhSachAnh;
+}
+public String getAnhDaiDien() {
+    if (danhSachAnh != null && !danhSachAnh.isEmpty()) {
+        return danhSachAnh.get(0).getLinkAnh(); 
     }
+    return "/assets/img/no-image.jpg"; // ảnh default
+}
+public Integer getTongSoLuongTon() {
+    // 1. Kiểm tra xem danh sách biến thể có bị null hoặc rỗng không
+    // (Hãy đảm bảo tên biến "bienTheSanPham" là chính xác)
+    if (this.bienThe == null || this.bienThe.isEmpty()) {
+        return 0;
+    }
+    
+    // 2. Dùng Stream API để tính tổng "soLuongTon"
+    return this.bienThe.stream()
+        .mapToInt(bienThe -> 
+            // Kiểm tra null cho từng "soLuongTon"
+            (bienThe.getSoLuongTon() != null) ? bienThe.getSoLuongTon() : 0
+        )
+        .sum();
+}
+
+
+
+
+    
 }

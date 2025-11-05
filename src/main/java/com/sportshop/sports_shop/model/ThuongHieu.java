@@ -3,8 +3,9 @@ package com.sportshop.sports_shop.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "THUONG_HIEU")
+@Table(name = "thuong_hieu")
 public class ThuongHieu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ma_thuong_hieu")
@@ -22,6 +23,57 @@ public class ThuongHieu {
     @Column(name = "quoc_gia", length = 50)
     private String quocGia;
 
-    // TODO: Thêm Constructors, Getters và Setters
-    // (Bạn nên dùng tính năng tự động tạo của VS Code hoặc Lombok)
+    // ---------------- Constructors ----------------
+
+    public ThuongHieu() {}
+
+    public ThuongHieu(Integer maThuongHieu, String tenThuongHieu, String moTa, String logoUrl, String quocGia) {
+        this.maThuongHieu = maThuongHieu;
+        this.tenThuongHieu = tenThuongHieu;
+        this.moTa = moTa;
+        this.logoUrl = logoUrl;
+        this.quocGia = quocGia;
+    }
+
+    // ---------------- Getters & Setters ----------------
+
+    public Integer getMaThuongHieu() {
+        return maThuongHieu;
+    }
+
+    public void setMaThuongHieu(Integer maThuongHieu) {
+        this.maThuongHieu = maThuongHieu;
+    }
+
+    public String getTenThuongHieu() {
+        return tenThuongHieu;
+    }
+
+    public void setTenThuongHieu(String tenThuongHieu) {
+        this.tenThuongHieu = tenThuongHieu;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public String getQuocGia() {
+        return quocGia;
+    }
+
+    public void setQuocGia(String quocGia) {
+        this.quocGia = quocGia;
+    }
 }

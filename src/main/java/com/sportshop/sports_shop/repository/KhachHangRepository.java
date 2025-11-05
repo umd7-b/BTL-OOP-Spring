@@ -1,16 +1,17 @@
 package com.sportshop.sports_shop.repository;
 
+import com.sportshop.sports_shop.model.KhachHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sportshop.sports_shop.model.KhachHang;
-
 @Repository
-public interface KhachHangRepository extends JpaRepository<KhachHang, Long> {
+public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
 
-    // Tìm khách hàng theo tên đăng nhập
+    KhachHang findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
     KhachHang findByTenDangNhap(String tenDangNhap);
 
-    // Tìm khách hàng theo email (nếu cần)
-    KhachHang findByEmail(String email);
+    boolean existsByTenDangNhap(String tenDangNhap);
 }
