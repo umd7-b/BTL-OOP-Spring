@@ -13,4 +13,8 @@ public interface SanPhamService {
     SanPham save(SanPham sanPham);
     void delete(Long    id);
     List<SanPham> search(String keyword);
+    
+        
+    Optional<SanPham> getByIdFull(Long id);
+    
 }

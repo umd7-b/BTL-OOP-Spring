@@ -1,15 +1,20 @@
 package com.sportshop.sports_shop.service;
 
-import com.sportshop.sports_shop.model.AnhSanPham;
-import com.sportshop.sports_shop.model.SanPham;
-import com.sportshop.sports_shop.repository.AnhSanPhamRepository;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
+import com.sportshop.sports_shop.model.AnhSanPham;
+import com.sportshop.sports_shop.model.SanPham;
+import com.sportshop.sports_shop.repository.AnhSanPhamRepository;
 
 @Service
 public class AnhSanPhamService {
@@ -17,26 +22,36 @@ public class AnhSanPhamService {
     @Autowired
     private AnhSanPhamRepository repo;
 
-    private final String UPLOAD_DIR = "uploads/product-images/";
+    // ✅ Folder upload cố định nằm trong static
+    private final String UPLOAD_DIR = System.getProperty("user.dir")
+            + "/src/main/resources/static/uploads/products/";
 
-    public void saveImages(SanPham sanPham, MultipartFile[] files) throws IOException {
+    public void saveImages(SanPham sp, MultipartFile[] files) throws IOException {
 
-        File folder = new File(UPLOAD_DIR);
-        if (!folder.exists()) folder.mkdirs();
+        // ✅ nếu chưa có thư mục -> tạo
+        File uploadFolder = new File(UPLOAD_DIR);
+        if (!uploadFolder.exists()) uploadFolder.mkdirs();
 
         for (MultipartFile file : files) {
-            if (file.isEmpty()) continue;
+            if (file == null || file.isEmpty()) continue;
 
-            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            String savePath = UPLOAD_DIR + fileName;
+            // ✅ Tạo tên file duy nhất
+            String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-            file.transferTo(new File(savePath));
+            // ✅ Đường dẫn đích
+            Path path = Paths.get(UPLOAD_DIR + filename);
 
-            AnhSanPham anh = new AnhSanPham();
-            anh.setSanPham(sanPham);
-            anh.setLinkAnh("/" + savePath);
+            // ✅ Ghi file vào đúng thư mục trong static (KHÔNG dùng temp)
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-            repo.save(anh);
+            // ✅ Lưu DB
+            AnhSanPham img = new AnhSanPham();
+            img.setSanPham(sp);
+            img.setLinkAnh(filename);
+            repo.save(img);
         }
     }
+
+   
+    
 }

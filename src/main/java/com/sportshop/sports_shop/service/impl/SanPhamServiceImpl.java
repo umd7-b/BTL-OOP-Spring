@@ -42,4 +42,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<SanPham> search(String keyword) {
         return sanPhamRepository.findByTenSpContainingIgnoreCase(keyword);
     }
+
+    @Override
+    public Optional<SanPham> getByIdFull(Long id) {
+        // Giả định rằng bạn đã tạo phương thức findByIdWithRelations 
+        // trong SanPhamRepository như bước trước
+        return sanPhamRepository.findByIdWithRelations(id);
+    }
 }
