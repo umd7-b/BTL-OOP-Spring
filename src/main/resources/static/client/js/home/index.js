@@ -1,7 +1,7 @@
 
 
 console.log("da ket noi voi js oke oke")
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {
         loginBtn.addEventListener("click", () => {
@@ -69,6 +69,52 @@ document.addEventListener("DOMContentLoaded", () => {
         "http://localhost:8081/api/danhmuc/all",
         "tenDanhMuc"
     );
+    // js product home
+    const grid = document.getElementById("productGrid");
+    const apiUrl = "http://localhost:8081/api/sanpham/all";
 
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Lỗi khi tải sản phẩm");
+        const products = await response.json();
+
+        if (products.length === 0) {
+            grid.innerHTML = `<p class="no-products">Không có sản phẩm nào để hiển thị.</p>`;
+            return;
+        }
+
+        grid.innerHTML = products
+            .map((p) => {
+                const imgSrc = p.anhDaiDien
+                    ? `http://localhost:8081${p.anhDaiDien}`
+                    : "/assets/img/no-image.jpg";
+
+                const ten = p.tenSp || "Sản phẩm chưa có tên";
+                const gia = p.giaKm ?? p.giaGoc ?? 0;
+                const giaGoc =
+                    p.giaGoc && p.giaKm && p.giaKm < p.giaGoc
+                        ? `<span class="old-price">${p.giaGoc.toLocaleString()}₫</span>`
+                        : "";
+
+                return `
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="${imgSrc}" alt="${ten}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${ten}</h3>
+                        <div class="product-price">
+                            <span class="new-price">${gia.toLocaleString()}₫</span>
+                            ${giaGoc}
+                        </div>
+                    </div>
+                </div>
+            `;
+            })
+            .join("");
+    } catch (error) {
+        console.error(error);
+        grid.innerHTML = `<p class="no-products">Không thể tải sản phẩm.</p>`;
+    }
 
 });
