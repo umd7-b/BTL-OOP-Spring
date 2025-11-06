@@ -761,109 +761,173 @@ footer {
 
 
 .login-icon {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.2s;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .login-icon:hover {
-  background: #e2e8f0;
+    background: #e2e8f0;
 }
 
 .login-icon img {
-  width: 26px;
-  height: 26px;
-  object-fit: cover;
-  border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.header-actions{
-  display: flex;
-  align-items: center;
-  gap: 12px;              /* giãn cách giữa giỏ hàng và icon người */
-  position: relative;
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* giãn cách giữa giỏ hàng và icon người */
+    position: relative;
 }
-.header-actions > * { pointer-events: auto; }
+
+.header-actions>* {
+    pointer-events: auto;
+}
 
 /* Nút giỏ hàng (pill xanh) – giới hạn hit-area, tránh đè sang icon người */
-.icon-btn{
-  position: relative;     /* để z-index hoạt động đúng */
-  z-index: 1;             /* nằm dưới icon người */
-  padding: 10px 14px;     /* kích thước gọn vừa */
-  line-height: 1;
-  border-radius: 9999px;
-  /* nếu có rule nào khác làm to/đẩy lệch (transform, absolute, margin âm) thì bỏ/ghi đè ở đây */
+.icon-btn {
+    position: relative;
+    /* để z-index hoạt động đúng */
+    z-index: 1;
+    /* nằm dưới icon người */
+    padding: 10px 14px;
+    /* kích thước gọn vừa */
+    line-height: 1;
+    border-radius: 9999px;
+    /* nếu có rule nào khác làm to/đẩy lệch (transform, absolute, margin âm) thì bỏ/ghi đè ở đây */
 }
 
 /* Icon người (nút đăng nhập) – luôn nổi trên giỏ hàng và có kích thước cố định */
-.login-icon{
-  position: relative;
-  z-index: 2;             /* trên .icon-btn để không bị che */
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;         /* không bị co giãn khi header hẹp */
-  border-radius: 50%;
-  background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: .2s;
-  border: 1px solid var(--stroke);   /* viền nhẹ cho rõ ranh giới */
+.login-icon {
+    position: relative;
+    z-index: 2;
+    /* trên .icon-btn để không bị che */
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    /* không bị co giãn khi header hẹp */
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s;
+    border: 1px solid var(--stroke);
+    /* viền nhẹ cho rõ ranh giới */
 }
-.login-icon:hover{ background:#e2e8f0; }
-.login-icon svg, .login-icon img{
-  width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+
+.login-icon:hover {
+    background: #e2e8f0;
+}
+
+.login-icon svg,
+.login-icon img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* (Tuỳ chọn) Nếu cart có badge số lượng dùng position tuyệt đối, giữ trong phạm vi nút */
-.icon-btn .cart-count{
-  position: absolute;
-  top: -6px; right: -6px;
-  min-width: 18px; height: 18px;
-  padding: 0 5px;
-  border-radius: 999px;
-  background: #ef4444; color: #fff;
-  font-size: 12px; line-height: 18px;
-  border: 2px solid #fff;
+.icon-btn .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    border: 2px solid #fff;
 }
 
-.icon-btn { z-index: 1; }
-.login-icon { z-index: 2; }
+.icon-btn {
+    z-index: 1;
+}
+
+.login-icon {
+    z-index: 2;
+}
 
 /* Trang đăng nhập riêng */
-.auth-page{
-  min-height: calc(100dvh - 140px);
-  display: grid;
-  place-items: center;
-  padding: 24px 16px;
+.auth-page {
+    min-height: calc(100dvh - 140px);
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
 }
-.auth-card{
-  width: min(420px, 100%);
-  background: #fff;
-  border: 3px solid var(--primary);     /* viền màu */
-  color: #000;                          /* chữ đen */
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+
+.auth-card {
+    width: min(420px, 100%);
+    background: #fff;
+    border: 3px solid var(--primary);
+    /* viền màu */
+    color: #000;
+    /* chữ đen */
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 }
-.auth-card h2{ margin: 0 0 12px; text-align:center; color:#000; }
-.auth-card label{ display:block; margin: 10px 0 6px; font-weight:600; color:#000; }
-.auth-card input{
-  width:100%; padding:10px; border:1.5px solid var(--primary);
-  border-radius:10px; color:#000; background:#fff;
+
+.auth-card h2 {
+    margin: 0 0 12px;
+    text-align: center;
+    color: #000;
 }
-.auth-card input:focus{ outline:none; border-color: var(--primary-600); box-shadow: 0 0 4px var(--primary-600); }
-.register-note{ text-align:center; font-size:14px; color:#000; }
-.register-note a{ color: var(--primary-600); font-weight:600; text-decoration:none; }
-.register-note a:hover{ text-decoration:underline; }
+
+.auth-card label {
+    display: block;
+    margin: 10px 0 6px;
+    font-weight: 600;
+    color: #000;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid var(--primary);
+    border-radius: 10px;
+    color: #000;
+    background: #fff;
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: var(--primary-600);
+    box-shadow: 0 0 4px var(--primary-600);
+}
+
+.register-note {
+    text-align: center;
+    font-size: 14px;
+    color: #000;
+}
+
+.register-note a {
+    color: var(--primary-600);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-note a:hover {
+    text-decoration: underline;
+}
 
 /* Container chính, cần 'position: relative' để định vị menu con */
 .user-menu-container {
@@ -873,10 +937,12 @@ footer {
 
 /* Kiểu cho nút kích hoạt "Xin chào..." */
 .user-menu-trigger {
-    cursor: pointer; /* Biến con trỏ chuột thành hình bàn tay */
+    cursor: pointer;
+    /* Biến con trỏ chuột thành hình bàn tay */
     display: flex;
     align-items: center;
-    gap: 8px; /* Khoảng cách giữa tên và mũi tên */
+    gap: 8px;
+    /* Khoảng cách giữa tên và mũi tên */
     padding: 10px;
     border-radius: 5px;
 }
@@ -888,21 +954,28 @@ footer {
 
 /* Kiểu cho mũi tên */
 .dropdown-arrow {
-    font-size: 0.7em; /* Cho mũi tên nhỏ lại */
+    font-size: 0.7em;
+    /* Cho mũi tên nhỏ lại */
 }
 
 /* Menu thả xuống (mặc định ẩn) */
 .dropdown-menu {
-    display: none; /* QUAN TRỌNG: Mặc định ẩn */
+    display: none;
+    /* QUAN TRỌNG: Mặc định ẩn */
     position: absolute;
-    right: 0; /* Căn lề phải */
-    top: 100%; /* Hiển thị ngay bên dưới nút kích hoạt */
+    right: 0;
+    /* Căn lề phải */
+    top: 100%;
+    /* Hiển thị ngay bên dưới nút kích hoạt */
     background-color: white;
-    min-width: 180px; /* Độ rộng tối thiểu cho menu */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 10; /* Luôn nằm trên cùng */
+    min-width: 180px;
+    /* Độ rộng tối thiểu cho menu */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    /* Luôn nằm trên cùng */
     border-radius: 5px;
-    overflow: hidden; /* Đảm bảo các link bên trong cũng bo góc */
+    overflow: hidden;
+    /* Đảm bảo các link bên trong cũng bo góc */
 }
 
 /* Các link <a> bên trong menu thả xuống */
@@ -910,7 +983,8 @@ footer {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
-    display: block; /* Mỗi link chiếm 1 hàng */
+    display: block;
+    /* Mỗi link chiếm 1 hàng */
 }
 
 /* Đổi màu nền khi di chuột qua từng mục menu */
@@ -920,5 +994,64 @@ footer {
 
 /* Lớp 'show' này sẽ được JavaScript thêm/xóa để ẩn/hiện menu */
 .dropdown-menu.show {
-    display: block; /* QUAN TRỌNG: Hiển thị menu */
+    display: block;
+    /* QUAN TRỌNG: Hiển thị menu */
+}
+
+/* --- DÙNG CHUNG CHO TẤT CẢ DROPDOWN (THƯƠNG HIỆU & MÔN THỂ THAO) --- */
+
+/* Bố cục menu chính */
+.nav-inner {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Container cho mỗi dropdown */
+.dropdown {
+    position: relative;
+}
+
+/* Nội dung dropdown (ẩn mặc định) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    min-width: 180px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+/* Hiển thị khi được bật */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Mục trong danh sách (li > a) */
+.dropdown-content li {
+    padding: 0;
+    cursor: pointer;
+}
+
+.dropdown-content li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Hiệu ứng hover */
+.dropdown-content li:hover,
+.dropdown-content li a:hover {
+    background-color: #f2f2f2;
+}
+
+/* --- (Tuỳ chọn) Hiệu ứng mượt khi mở --- */
+.dropdown-content {
+    transition: all 0.2s ease;
 }

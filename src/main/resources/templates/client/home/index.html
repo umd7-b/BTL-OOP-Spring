@@ -7,6 +7,7 @@
    
     <link th:href="@{/client/css/home/index.css}" rel="stylesheet" />
   </head>
+ 
   <body>
     <div class="topbar">
       Miễn phí vận chuyển đơn từ 599k • Đổi size trong 7 ngày • Hotline: 0988 888 888
@@ -84,9 +85,20 @@
       </div>
       <nav class="nav" aria-label="Danh mục">
         <div class="nav-inner">
-          <a href="#" data-filter="">Tất cả</a>
-          <a href="#" data-filter="giay">THƯƠNG HIỆU</a>
-          <a href="#" data-filter="female">MÔN THỂ THAO</a>
+          
+          <div class="dropdown">
+              <a href="#" id="tatCaBtn">TẤT CẢ</a>
+              <ul id="tatCaList" class="dropdown-content"></ul>
+          </div>
+          <div class="dropdown">
+              <a href="#" id="thuongHieuBtn">THƯƠNG HIỆU</a>
+              <ul id="thuongHieuList" class="dropdown-content"></ul>
+          </div>
+
+          <div class="dropdown">
+              <a href="#" id="monTheThaoBtn">MÔN THỂ THAO</a>
+              <ul id="monTheThaoList" class="dropdown-content"></ul>
+          </div>
           <a href="#" data-filter="ao">NAM</a>
           <a href="#" data-filter="bong">NỮ</a>
           <a href="#" data-filter="phukien">Phụ kiện</a>
@@ -439,6 +451,7 @@ function addMenuListeners() {
     }
 }
     </script>
+
 
   </body>
 </html>
