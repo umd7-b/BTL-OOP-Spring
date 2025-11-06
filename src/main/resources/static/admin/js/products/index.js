@@ -224,7 +224,7 @@ function loadDropdownData() {
             });
         });
     
-    // Load sports
+  
     fetch('/admin/api/sports')
         .then(response => response.json())
         .then(sports => {
@@ -238,21 +238,19 @@ function loadDropdownData() {
         });
 }
 
-// Handle form submission
-// XÓA HÀM CŨ VÀ THAY BẰNG HÀM NÀY
+
 document.getElementById('addForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Ngăn form tự submit
     
     const form = event.target;
     const action = form.action; 
     
-    // 1. Tạo FormData từ form (để lấy các trường cơ bản: tenSp, giaGoc,...)
-    // Hàm này cũng tự động lấy file ảnh (anhSanPham)
+    
     const formData = new FormData(form);
     
-    // 2. Xử lý dữ liệu Biến thể
+    
     const variants = [];
-    // Tìm tất cả các hàng 'tr' trong tbody của bảng variantsTable
+    
     const variantRows = document.querySelectorAll('#variantsTable tbody tr'); 
     
     variantRows.forEach(row => {
@@ -271,18 +269,12 @@ document.getElementById('addForm').addEventListener('submit', function(event) {
         }
     });
 
-    // 3. Thêm mảng variants vào FormData dưới dạng chuỗi JSON
-    // Tên 'variants' phải khớp với @RequestParam("variants") trong Controller
+
     if (variants.length > 0) {
         formData.append('variants', JSON.stringify(variants));
     }
     
-    // (DEBUG) Bỏ ẩn dòng này để xem bạn đang gửi gì
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-
-    // 4. Gửi request
+  
     fetch(action, {
         method: 'POST',
         body: formData // Bây giờ formData đã chứa: data form + JSON biến thể + files
@@ -403,8 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.remove()">X</button>
         </td>
     `;
-    // Bỏ thuộc tính 'name' đi, chúng ta không cần chúng nữa
-    // vì chúng ta sẽ đọc bằng 'class'
+    
 
     table.appendChild(row);
 }
+
+
+
