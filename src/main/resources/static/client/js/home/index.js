@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         grid.innerHTML = products
             .map((p) => {
                 const imgSrc = p.anhDaiDien
-                    ? `http://localhost:8081${p.anhDaiDien}`
+                    ? `${p.anhDaiDien}`
                     : "/assets/img/no-image.jpg";
 
                 const ten = p.tenSp || "Sản phẩm chưa có tên";

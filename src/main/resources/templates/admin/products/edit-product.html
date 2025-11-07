@@ -64,10 +64,13 @@
         }
     </style>
 
+
 </head>
+
 
 <body>
 <div class="container">
+
 
     <!-- Sidebar -->
    <div class="sidebar">
@@ -100,29 +103,38 @@
     </div>
 </div>
 
+
     <!-- Main Content -->
     <div class="main-content">
         <div class="header">
             <h1>Chỉnh sửa sản phẩm</h1>
         </div>
 
+
         <div class="content">
 
+
             <div class="form-card">
+
 
                <form th:action="@{|/admin/products/update/${product.maSp}|}"
       method="post"
       enctype="multipart/form-data">
 
-                <div th:if="${success}" 
+
+                <div th:if="${success}"
      style="padding:12px;background:#d4edda;color:#155724;border-radius:6px;margin-bottom:15px;">
     <strong th:text="${success}"></strong>
 </div>
 
 
 
+
+
+
                     <!-- ID SP -->
                     <input type="hidden" th:value="${product.maSp}" name="maSp"/>
+
 
                     <!-- Tên SP -->
                     <div class="form-group">
@@ -130,17 +142,20 @@
                         <input type="text" name="tenSp" th:value="${product.tenSp}" required>
                     </div>
 
+
                     <!-- Giá gốc -->
                     <div class="form-group">
                         <label>Giá gốc</label>
                         <input type="number" name="giaGoc" th:value="${product.giaGoc}" required>
                     </div>
 
+
                     <!-- Giá KM -->
                     <div class="form-group">
                         <label>Giá khuyến mãi</label>
                         <input type="number" name="giaKm" th:value="${product.giaKm}">
                     </div>
+
 
                     <!-- Thương hiệu -->
                     <div class="form-group">
@@ -154,6 +169,7 @@
                         </select>
                     </div>
 
+
                     <!-- Danh mục -->
                     <div class="form-group">
                         <label>Danh mục</label>
@@ -165,6 +181,7 @@
                             </option>
                         </select>
                     </div>
+
 
                     <!-- Môn thể thao -->
                     <div class="form-group">
@@ -179,11 +196,14 @@
                     </div>
 
 
+
+
                     <div class="variants-section">
                         <h3>📏 Biến thể sản phẩm</h3>
                         <button type="button" class="btn-add-variant" onclick="addVariantRow()">
                             + Thêm biến thể
                         </button>
+
 
                         <table id="variantsTable">
                             <thead>
@@ -197,35 +217,35 @@
                             <tbody>
                                 <!-- Hiển thị các biến thể hiện có -->
                                 <tr th:each="variant, iterStat : ${product.bienThe}">
-                                    <input type="hidden" 
-                                           th:name="|bienThe[${iterStat.index}].maBienThe|" 
+                                    <input type="hidden"
+                                           th:name="|bienThe[${iterStat.index}].maBienThe|"
                                            th:value="${variant.maBienThe}"/>
-                                    
+                                   
                                     <td>
-                                        <input type="text" 
-                                               th:name="|bienThe[${iterStat.index}].mauSac|" 
-                                               th:value="${variant.mauSac}" 
+                                        <input type="text"
+                                               th:name="|bienThe[${iterStat.index}].mauSac|"
+                                               th:value="${variant.mauSac}"
                                                class="input-mau-sac"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td>
-                                        <input type="text" 
-                                               th:name="|bienThe[${iterStat.index}].kichThuoc|" 
-                                               th:value="${variant.kichThuoc}" 
+                                        <input type="text"
+                                               th:name="|bienThe[${iterStat.index}].kichThuoc|"
+                                               th:value="${variant.kichThuoc}"
                                                class="input-kich-thuoc"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td>
-                                        <input type="number" 
-                                               th:name="|bienThe[${iterStat.index}].soLuongTon|" 
-                                               th:value="${variant.soLuongTon}" 
+                                        <input type="number"
+                                               th:name="|bienThe[${iterStat.index}].soLuongTon|"
+                                               th:value="${variant.soLuongTon}"
                                                class="input-ton-kho"
-                                               min="0" 
+                                               min="0"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td style="text-align: center;">
                                         <button type="button" class="btn-remove-variant" onclick="removeVariantRow(this)">
                                             X
@@ -233,33 +253,34 @@
                                     </td>
                                 </tr>
 
+
                                 <!-- Nếu chưa có biến thể nào, hiển thị 1 dòng trống -->
                                 <tr th:if="${#lists.isEmpty(product.bienThe)}">
                                     <td>
-                                        <input type="text" 
-                                               name="bienThe[0].mauSac" 
+                                        <input type="text"
+                                               name="bienThe[0].mauSac"
                                                class="input-mau-sac"
                                                placeholder="Ví dụ: Đỏ"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td>
-                                        <input type="text" 
-                                               name="bienThe[0].kichThuoc" 
+                                        <input type="text"
+                                               name="bienThe[0].kichThuoc"
                                                class="input-kich-thuoc"
                                                placeholder="Ví dụ: M, 39, XL"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td>
-                                        <input type="number" 
-                                               name="bienThe[0].soLuongTon" 
+                                        <input type="number"
+                                               name="bienThe[0].soLuongTon"
                                                class="input-ton-kho"
                                                value="0"
-                                               min="0" 
+                                               min="0"
                                                required/>
                                     </td>
-                                    
+                                   
                                     <td style="text-align: center;">
                                         <button type="button" class="btn-remove-variant" onclick="removeVariantRow(this)">
                                             X
@@ -274,22 +295,31 @@
 
 
 
+
+
+
+
+
                     <!-- Ảnh hiện tại -->
                     <div class="form-group">
                         <label>Ảnh hiện tại</label>
                         <div class="image-preview-container">
+
 
                             <div th:each="img : ${product.danhSachAnh}">
                                 <img th:src="@{'/uploads/products/' + ${img.linkAnh}}"
                                      style="width:80px;height:80px;object-fit:cover;border-radius:6px;margin-right:10px;">
                             </div>
 
+
                             <div th:if="${#lists.isEmpty(product.danhSachAnh)}">
                                 <p>Không có ảnh</p>
                             </div>
 
+
                         </div>
                     </div>
+
 
                     <!-- Upload ảnh mới -->
                     <div class="form-group">
@@ -297,20 +327,26 @@
                         <input type="file" name="anhSanPham" multiple accept="image/*">
                     </div>
 
+
                     <!-- Nút -->
                     <div class="modal-actions">
                         <a href="/admin/products/list" class="btn btn-secondary">⬅ Quay lại</a>
+
 
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                     </div>
 
 
+
+
                 </form>
+
 
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     /**
@@ -318,41 +354,42 @@
      */
     function addVariantRow() {
         const tbody = document.getElementById('variantsTable').getElementsByTagName('tbody')[0];
-        
+       
         // Lấy index mới bằng số lượng hàng hiện tại
         // Điều này quan trọng để Spring Boot có thể nhận mảng: bienThe[0], bienThe[1], ...
         const newIndex = tbody.rows.length;
+
 
         // Tạo hàng (tr) và các ô (td) mới
         const newRow = tbody.insertRow();
         newRow.innerHTML = `
             <input type="hidden" name="bienThe[${newIndex}].maBienThe" value="" />
-            
+           
             <td>
-                <input type="text" 
-                       name="bienThe[${newIndex}].mauSac" 
+                <input type="text"
+                       name="bienThe[${newIndex}].mauSac"
                        class="input-mau-sac"
                        placeholder="Ví dụ: Đỏ"
                        required/>
             </td>
-            
+           
             <td>
-                <input type="text" 
-                       name="bienThe[${newIndex}].kichThuoc" 
+                <input type="text"
+                       name="bienThe[${newIndex}].kichThuoc"
                        class="input-kich-thuoc"
                        placeholder="Ví dụ: M, 39, XL"
                        required/>
             </td>
-            
+           
             <td>
-                <input type="number" 
-                       name="bienThe[${newIndex}].soLuongTon" 
+                <input type="number"
+                       name="bienThe[${newIndex}].soLuongTon"
                        class="input-ton-kho"
                        value="0"
-                       min="0" 
+                       min="0"
                        required/>
             </td>
-            
+           
             <td style="text-align: center;">
                 <button type="button" class="btn-remove-variant" onclick="removeVariantRow(this)">
                     X
@@ -361,6 +398,7 @@
         `;
     }
 
+
     /**
      * Xóa một hàng biến thể và cập nhật lại chỉ số (index) của các hàng còn lại
      */
@@ -368,10 +406,11 @@
         // Lấy hàng `tr` cha gần nhất và xóa nó
         const rowToRemove = button.closest('tr');
         rowToRemove.remove();
-        
+       
         // Cập nhật lại index của tất cả các hàng còn lại
         updateRowIndexes();
     }
+
 
     /**
      * Cập nhật lại thuộc tính 'name' cho các input để đảm bảo index liên tục
@@ -380,7 +419,7 @@
     function updateRowIndexes() {
         const tbody = document.getElementById('variantsTable').getElementsByTagName('tbody')[0];
         const rows = tbody.querySelectorAll('tr');
-        
+       
         rows.forEach((row, index) => {
             // Tìm tất cả input, select... bên trong hàng này
             row.querySelectorAll('input').forEach(input => {
@@ -398,5 +437,11 @@
 
 
 
+
+
+
 </body>
 </html>
+
+
+

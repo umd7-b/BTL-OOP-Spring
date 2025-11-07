@@ -39,6 +39,7 @@
             </div>
         </div>
 
+
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">
@@ -47,7 +48,7 @@
                     <span>Admin User</span>
                     <div class="user-avatar">A</div>
                     <span class="dropdown-arrow">▼</span>
-                    
+                   
                     <!-- Dropdown Menu -->
                     <div class="dropdown-menu" id="dropdownMenu">
                         <div class="dropdown-item logout" onclick="handleLogout(event)">
@@ -58,6 +59,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="content">
                 <!-- Stats Cards with Add Buttons -->
@@ -100,30 +102,32 @@
                     </div>
                 </div>
 
+
                 <!-- Filter Section -->
                 <div class="filter-section">
                     <div class="filter-group">
                         <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterProducts()">
                         <select id="brandFilter" onchange="filterProducts()">
                             <option value="">Tất cả thương hiệu</option>
-                            <option th:each="brand : ${brands}" 
-                                    th:value="${brand.maThuongHieu}" 
+                            <option th:each="brand : ${brands}"
+                                    th:value="${brand.tenThuongHieu}"
                                     th:text="${brand.tenThuongHieu}"></option>
                         </select>
                         <select id="categoryFilter" onchange="filterProducts()">
                             <option value="">Tất cả danh mục</option>
-                            <option th:each="category : ${categories}" 
-                                    th:value="${category.maDanhMuc}" 
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.tenDanhMuc}"
                                     th:text="${category.tenDanhMuc}"></option>
                         </select>
                         <select id="sportFilter" onchange="filterProducts()">
                             <option value="">Tất cả môn thể thao</option>
-                            <option th:each="sport : ${sports}" 
-                                    th:value="${sport.maMonTheThao}" 
+                            <option th:each="sport : ${sports}"
+                                    th:value="${sport.tenMonTheThao}"
                                     th:text="${sport.tenMonTheThao}"></option>
                         </select>
                     </div>
                 </div>
+
 
                 <!-- Products Table -->
                 <div class="data-table">
@@ -148,8 +152,8 @@
                                 <td th:text="${product.maSp}"></td>
                                 <td>
                                     <div class="product-image">
-                                        <img th:if="${product.danhSachAnh != null && !#lists.isEmpty(product.danhSachAnh)}" 
-                                             th:src="@{'/uploads/products/' + ${product.danhSachAnh[0].linkAnh}}" 
+                                        <img th:if="${product.danhSachAnh != null && !#lists.isEmpty(product.danhSachAnh)}"
+                                             th:src="@{'/uploads/products/' + ${product.danhSachAnh[0].linkAnh}}"
                                              alt="Product Image"
                                              onerror="this.parentElement.innerHTML='📦'"
                                              style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
@@ -163,6 +167,7 @@
                                 <td th:text="${#numbers.formatDecimal(product.giaGoc, 0, 'POINT', 0, 'COMMA')} + ' đ'"></td>
                                 <td th:text="${product.giaKm != null ? #numbers.formatDecimal(product.giaKm, 0, 'POINT', 0, 'COMMA') + ' đ' : '-'}"></td>
                                     <td th:text="${product.tongSoLuongTon}"></td>
+
 
                                 <td>
                                     <button class="btn btn-primary" th:onclick="|editProduct('${product.maSp}')|">Sửa</button>
@@ -181,6 +186,7 @@
         </div>
     </div>
 
+
     <!-- Modal for Adding Product -->
     <div id="addModal" class="modal">
         <div class="modal-content">
@@ -196,8 +202,10 @@
         </div>
     </div>
 
+
  
-    
+   
+
 
     <script th:src="@{/admin/js/auth.js}"></script>
     <script th:src="@{/admin/js/products/index.js}"></script>

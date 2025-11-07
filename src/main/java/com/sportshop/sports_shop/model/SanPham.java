@@ -85,11 +85,14 @@ public class SanPham {
     }
 
     public String getAnhDaiDien() {
-        if (danhSachAnh != null && !danhSachAnh.isEmpty()) {
-            return danhSachAnh.get(0).getLinkAnh();
-        }
-        return "/assets/img/no-image.jpg"; // ảnh default
+    if (danhSachAnh != null && !danhSachAnh.isEmpty()) {
+        String fileName = danhSachAnh.get(0).getLinkAnh();
+        // Trả về URL tuyệt đối để frontend load được
+        return "http://localhost:8081/uploads/products/" + fileName;
     }
+    return "/assets/img/no-image.jpg"; // ảnh mặc định
+}
+
 
     public Integer getTongSoLuongTon() {
         // 1. Kiểm tra xem danh sách biến thể có bị null hoặc rỗng không
