@@ -9,5 +9,5 @@ import com.sportshop.sports_shop.model.BienTheSanPham;
 
 @Repository
 public interface BienTheSanPhamRepository extends JpaRepository<BienTheSanPham, Integer> {
-    List<BienTheSanPham> findBySanPhamMaSp(Integer maSp);
+    List<BienTheSanPham> findBySanPhamMaSp(Long maSp);
 }

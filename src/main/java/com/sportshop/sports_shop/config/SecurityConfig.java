@@ -18,6 +18,13 @@ public class SecurityConfig {
 
             // Cho phép truy cập tất cả (hoặc bạn có thể giới hạn nếu muốn)
             .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/sanpham/**").permitAll()
+                .requestMatchers(
+                    "/uploads/**", // <<< CHO PHÉP TRUY CẬP THƯ MỤC UPLOADS
+                    "/client/**", 
+                    "/css/**", 
+                    "/js/**"
+                ).permitAll()
                 .requestMatchers("/register", "/login", "/client/**", "/js/**", "/css/**").permitAll()
                 .anyRequest().permitAll()
             )
@@ -26,6 +33,7 @@ public class SecurityConfig {
             .formLogin(form -> form.disable())
 
             // Cho phép logout
+            
             .logout(logout -> logout.permitAll());
 
         return http.build();

@@ -1,5 +1,3 @@
-
-
 console.log("da ket noi voi js oke oke")
 document.addEventListener("DOMContentLoaded", async () => {
     const loginBtn = document.getElementById("loginBtn");
@@ -16,17 +14,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         btn.addEventListener("click", async (event) => {
             event.preventDefault();
-            event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+            event.stopPropagation();
 
-            // Ẩn các dropdown khác nếu có
             document.querySelectorAll(".dropdown-content.show").forEach((el) => {
                 if (el !== list) el.classList.remove("show");
             });
 
-            // Toggle dropdown hiện tại
             list.classList.toggle("show");
 
-            // Nếu dropdown đang trống thì mới load API
             if (list.innerHTML.trim() === "") {
                 try {
                     const response = await fetch(apiUrl);
@@ -41,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
-        // Khi click ra ngoài, đóng dropdown
         document.addEventListener("click", (event) => {
             if (!btn.contains(event.target) && !list.contains(event.target)) {
                 list.classList.remove("show");
@@ -49,7 +43,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // --- Gọi hàm cho từng dropdown ---
     setupDropdown(
         "thuongHieuBtn",
         "thuongHieuList",
@@ -63,12 +56,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         "http://localhost:8081/api/monthethao/all",
         "tenMonTheThao"
     );
+
     setupDropdown(
         "tatCaBtn",
         "tatCaList",
         "http://localhost:8081/api/danhmuc/all",
         "tenDanhMuc"
     );
+
     // js product home
     const grid = document.getElementById("productGrid");
     const apiUrl = "http://localhost:8081/api/sanpham/all";
@@ -96,8 +91,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                         ? `<span class="old-price">${p.giaGoc.toLocaleString()}₫</span>`
                         : "";
 
+                // 🟢 Thêm onclick để chuyển sang trang chi tiết sản phẩm
                 return `
-                <div class="product-card">
+                <div class="product-card" onclick="viewProduct(${p.maSp})">
                     <div class="product-img">
                         <img src="${imgSrc}" alt="${ten}">
                     </div>
@@ -116,5 +112,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error(error);
         grid.innerHTML = `<p class="no-products">Không thể tải sản phẩm.</p>`;
     }
-
 });
+
+// 🟢 Hàm chuyển sang trang chi tiết sản phẩm
+function viewProduct(id) {
+    window.location.href = `/sanpham/${id}`;
+}
