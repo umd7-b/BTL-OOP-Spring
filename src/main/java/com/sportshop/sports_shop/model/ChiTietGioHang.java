@@ -54,5 +54,5 @@ public class ChiTietGioHang {
     private BigDecimal gia;
     
     @Column(name = "da_chon")
-    private Boolean daChon;
+    private Boolean daChon = true;
 }

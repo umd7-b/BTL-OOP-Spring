@@ -234,7 +234,8 @@
                         return;
                     }
                     // TODO: Chuyển đến trang thanh toán
-                    alert('Chức năng thanh toán đang được phát triển!');
+                    window.location.href = "/thanhtoan";
+
                 });
             }
         }

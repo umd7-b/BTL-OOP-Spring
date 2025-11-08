@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - Lowtech Store</title>
+
+  
+    <link th:href="@{/client/css/home/payment.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="/" class="logo-area">
+                <img src="/client/images/logo.png" alt="Logo">
+                <div class="logo-text-box">
+                    <span class="logo-title">Lowtech Store</span>
+                    <span class="logo-slogan">Lowtech – nhưng chất lượng thì never low.</span>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <div class="checkout-container">
+
+        <!-- LEFT -->
+        <div>
+
+            <!-- Thông tin giao hàng -->
+            <div class="section">
+                <h2>Thông tin giao hàng</h2>
+
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input id="fullname" type="text" placeholder="Họ và tên người nhận hàng">
+                </div>
+
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input id="phone" type="text" placeholder="Số điện thoại người nhận hàng">
+                </div>
+
+                <div class="form-group">
+                    <label>Địa chỉ giao hàng</label>
+                    <input id="address" type="text" placeholder="Số nhà, đường, phường, quận, tỉnh">
+                </div>
+            </div>
+
+            <!-- Shipping -->
+            <div class="section">
+                <h2>Phương thức giao hàng</h2>
+
+                <div class="radio-row">
+                    <input type="radio" name="ship" value="0" checked>
+                <div>🚚 Giao tiêu chuẩn: Thời gian nhận hàng 3-5 ngày</div>
+                    
+                </div>
+
+                
+            </div>
+
+            <!-- Payment -->
+            <div class="section">
+                <h2>Phương thức thanh toán</h2>
+
+                <div class="radio-row">
+                    <input type="radio" name="pay" value="COD" checked>
+                    <label>💵 COD (Thanh toán khi nhận hàng)</label>
+                </div>
+
+                
+
+                
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="checkout-right">
+            <h2>Đơn hàng của bạn</h2>
+
+            <div id="orderItems" class="order-items"></div>
+
+            <div class="summary-row">
+                <span>Tạm tính</span>
+                <span id="subtotal">0₫</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Phí vận chuyển</span>
+                <span id="shippingFee">Miễn Phí</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Tổng cộng</span>
+                <strong id="total">0₫</strong>
+            </div>
+
+            <button id="confirmBtn" class="confirm-btn">✅ Xác nhận thanh toán</button>
+        </div>
+
+    </div>
+    <div id="toast-root"></div>
+
+    <script src="/client/js/home/Payment.js">
+        
+    </script>
+
+</body>
+</html>
