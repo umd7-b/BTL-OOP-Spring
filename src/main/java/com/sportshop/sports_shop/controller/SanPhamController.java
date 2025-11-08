@@ -1,5 +1,6 @@
 package com.sportshop.sports_shop.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,19 @@ public class SanPhamController {
     public SanPhamController(SanPhamService sanPhamService) {
         this.sanPhamService = sanPhamService;
     }
+    // filter sản phẩm
+    @GetMapping("/filter")
+    public List<SanPham> filterSanPham(
+            @RequestParam(required = false) Integer thuongHieu,
+            @RequestParam(required = false) Integer monTheThao,
+            @RequestParam(required = false) Integer danhMuc,
+            @RequestParam(required = false) BigDecimal giaMin,
+            @RequestParam(required = false) BigDecimal giaMax
+    ) {
+        return sanPhamService.filterSanPham(thuongHieu, monTheThao, danhMuc, giaMin, giaMax);
+    }
+
+
 
     // --- Lấy toàn bộ sản phẩm ---
     @GetMapping("/all")
@@ -64,4 +78,5 @@ public class SanPhamController {
     public void deleteSanPham(@PathVariable Long id) {
         sanPhamService.delete(id);
     }
+    
 }

@@ -49,4 +49,12 @@ public class SanPhamServiceImpl implements SanPhamService {
         // trong SanPhamRepository như bước trước
         return sanPhamRepository.findByIdWithRelations(id);
     }
+
+    //filter
+    @Override
+public List<SanPham> filterSanPham(Integer thuongHieuId, Integer monTheThaoId, Integer danhMucId,
+                                   java.math.BigDecimal giaMin, java.math.BigDecimal giaMax) {
+    return sanPhamRepository.filterSanPham(thuongHieuId, monTheThaoId, danhMucId, giaMin, giaMax);
+}
+
 }

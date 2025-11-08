@@ -16,5 +16,7 @@ public interface SanPhamService {
     
         
     Optional<SanPham> getByIdFull(Long id);
-    
+    List<SanPham> filterSanPham(Integer thuongHieuId, Integer monTheThaoId, Integer danhMucId,
+                             java.math.BigDecimal giaMin, java.math.BigDecimal giaMax);
+
 }

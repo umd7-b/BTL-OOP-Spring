@@ -166,6 +166,7 @@
    
 
     <div class="toolbar" id="toolbar">
+      <!--
       <div class="filters">
         <button class="chip active" data-chip="all">Tất cả</button>
         <button class="chip" data-chip="sale">Đang giảm giá</button>
@@ -173,6 +174,27 @@
         <button class="chip" data-chip="<1000">Dưới 1triệu</button>
         <button class="chip" data-chip=">=1000">Từ 1triệu</button>
       </div>
+      -->
+      <div class="filters">
+        <button class="chip active" id="allBtn">Tất cả</button>
+
+        <select class="chip" id="filterBrand">
+          <option value="">Thương hiệu</option>
+        </select>
+
+        <select class="chip" id="filterSport">
+          <option value="">Môn thể thao</option>
+        </select>
+
+        <select class="chip" id="filterPrice">
+          <option value="">Khoảng giá</option>
+          <option value="0-500000">Dưới 500K</option>
+          <option value="500000-1000000">500K - 1 triệu</option>
+          <option value="1000000-2000000">1 - 2 triệu</option>
+          <option value="2000000-99999999">Trên 2 triệu</option>
+        </select>
+        </div>
+
       <select class="sort" id="sortSelect" aria-label="Sắp xếp">
         <option value="popular">Phổ biến</option>
         <option value="price-asc">Giá tăng dần</option>
@@ -330,7 +352,7 @@
         </div>
       </div>
     </footer>
-   <script th:src="@{/client/js/home/index.js}"></script>
+   <script th:src="@{/client/js/home/index.js}" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
 
