@@ -1,39 +1,39 @@
-// package com.sportshop.sports_shop.model;
+package com.sportshop.sports_shop.model;
 
-// import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-// import java.math.BigDecimal;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-// @Entity
-// @Table(name = "chi_tiet_don_hang") // Map với bảng 'chi_tiet_don_hang'
-// @Getter
-// @Setter
-// public class ChiTietDonHang {
+@Entity
+@Table(name = "chi_tiet_don_hang")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class ChiTietDonHang {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     @Column(name = "ma_chi_tiet")
-//     private Long maChiTiet;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer maCtDonHang;
 
-//     // --- Mối quan hệ Nhiều-Một với DonHang (Bên "Nhiều") ---
-//     // Nhiều chi tiết thuộc về MỘT đơn hàng
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "ma_don_hang", nullable = false) // Tên cột khóa ngoại
-//     private DonHang donHang;
+    @Column(name = "ma_don_hang")
+    private Integer maDonHang;
 
-//     // --- Mối quan hệ Nhiều-Một với SanPham ---
-//     // Nhiều chi tiết có thể trỏ đến MỘT sản phẩm
-//     // (Giả sử bạn có Entity SanPham.java)
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "ma_san_pham", nullable = false)
-//     private SanPham sanPham;
+    @Column(name = "ma_sp")
+    private Integer maSp;
 
-//     // --- Các trường thông tin của chi tiết ---
-//     @Column(name = "so_luong", nullable = false)
-//     private int soLuong;
+    @Column(name = "ma_bien_the")
+    private Integer maBienThe;
 
-//     @Column(name = "don_gia", nullable = false, precision = 10, scale = 2)
-//     private BigDecimal donGia; // Giá của sản phẩm TẠI THỜI ĐIỂM MUA HÀNG
-// }
+    private Integer soLuong;
+
+    private Double gia;
+}

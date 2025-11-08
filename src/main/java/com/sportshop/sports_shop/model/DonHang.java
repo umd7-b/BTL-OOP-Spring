@@ -1,64 +1,41 @@
-// package com.sportshop.sports_shop.model;
+package com.sportshop.sports_shop.model;
 
-// import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
+import java.time.LocalDateTime;
 
-// import java.math.BigDecimal; // Dùng BigDecimal cho tiền tệ để tránh sai số
-// import java.time.LocalDateTime;
-// import java.util.HashSet;
-// import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-// @Entity
-// @Table(name = "don_hang") // Map với bảng 'don_hang' trong DB
-// @Getter
-// @Setter
-// public class DonHang {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     @Column(name = "ma_don_hang")
-//     private Long maDonHang;
+@Entity
+@Table(name = "don_hang")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class DonHang {
 
-//     // --- Mối quan hệ Nhiều-Một với KhachHang ---
-//     // Nhiều đơn hàng có thể thuộc về MỘT khách hàng
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "ma_khach_hang", nullable = false) // Tên cột khóa ngoại
-//     private KhachHang khachHang;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer maDonHang;
 
-//     // --- Các trường thông tin của đơn hàng ---
-//     @Column(name = "ngay_dat_hang", nullable = false)
-//     private LocalDateTime ngayDatHang;
+    @Column(name = "ma_kh")
+    private Integer maKh;
 
-//     @Column(name = "tong_tien", nullable = false, precision = 10, scale = 2)
-//     private BigDecimal tongTien; // Dùng BigDecimal cho chính xác
+    private LocalDateTime ngayDat = LocalDateTime.now();
 
-//     @Column(name = "trang_thai", length = 50)
-//     private String trangThai; // Ví dụ: "Chờ xử lý", "Đã giao", "Đã hủy"
+    private Double tongTien;
 
-//     @Column(name = "dia_chi_giao_hang")
-//     private String diaChiGiaoHang;
+    private String trangThai;
 
-//     @Column(name = "so_dien_thoai", length = 15)
-//     private String soDienThoai;
+    private String diaChiGiao;
 
-//     // --- Mối quan hệ Một-Nhiều với ChiTietDonHang ---
-//     // MỘT đơn hàng có NHIỀU chi tiết đơn hàng
-//     @OneToMany(
-//         mappedBy = "donHang", // "donHang" là tên trường ở class ChiTietDonHang
-//         cascade = CascadeType.ALL, // Lưu/Xóa chi tiết khi lưu/xóa đơn hàng
-//         orphanRemoval = true // Xóa chi tiết nếu nó bị gỡ khỏi danh sách
-//     )
-//     private Set<ChiTietDonHang> chiTietDonHangs = new HashSet<>();
-
-//     // --- Các hàm trợ giúp (Helper methods) để đồng bộ hai chiều (Rất quan trọng) ---
-//     public void addChiTiet(ChiTietDonHang chiTiet) {
-//         chiTietDonHangs.add(chiTiet);
-//         chiTiet.setDonHang(this);
-//     }
-
-//     public void removeChiTiet(ChiTietDonHang chiTiet) {
-//         chiTietDonHangs.remove(chiTiet);
-//         chiTiet.setDonHang(null);
-//     }
-// }
+    private String phuongThucThanhToan;
+}

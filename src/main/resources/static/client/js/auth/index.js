@@ -131,6 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
 
             if (response.ok) {
+                 
                 showMessage("Đăng ký thành công! Đang chuyển đến trang đăng nhập...", "green");
                 form.reset();
                 setTimeout(() => (window.location.href = "/login"), 1000);

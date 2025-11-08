@@ -1,14 +1,36 @@
-// package com.sportshop.sports_shop.repository;
+ package com.sportshop.sports_shop.repository;
 
-// import java.util.Optional;
+import java.util.List;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.data.jpa.repository.Query;
+ import org.springframework.stereotype.Repository;
 
-// import com.sportshop.sports_shop.model.ChiTietGioHang;
+import com.sportshop.sports_shop.model.ChiTietGioHang;
 
 
-// public interface ChiTietGioHangRepository extends JpaRepository<ChiTietGioHang, Long> {
+
+@Repository
+public interface ChiTietGioHangRepository extends JpaRepository<ChiTietGioHang, Integer> {
+
+    ChiTietGioHang findByGioHangMaGioHangAndBienTheMaBienThe(Integer maGioHang, Integer maBienThe);
+
+    List<ChiTietGioHang> findByGioHangMaGioHang(Integer maGioHang);
+
+    void deleteByGioHangMaGioHangAndBienTheMaBienThe(Integer maGioHang, Integer maBienThe);
+
+    void deleteByGioHangMaGioHang(Integer maGioHang);
+
+    List<ChiTietGioHang> findByGioHangMaGioHangAndDaChon(Integer maGioHang, Boolean daChon);
+
+    @Query("SELECT SUM(ct.gia * ct.soLuong) FROM ChiTietGioHang ct WHERE ct.gioHang.maGioHang = :id")
+    Double sumTotal(Integer id);
+
+    @Query("SELECT SUM(ct.gia * ct.soLuong) FROM ChiTietGioHang ct WHERE ct.gioHang.maGioHang = :id AND ct.daChon = true")
+    Double sumSelected(Integer id);
     
     
-//     Optional<ChiTietGioHang> findByGioHang_MaGioHangAndSanPham_MaSp(Long maGioHang, Integer maSanPham);
-// }
+}
+
+
+

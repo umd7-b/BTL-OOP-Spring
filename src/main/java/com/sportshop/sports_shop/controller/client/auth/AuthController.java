@@ -107,7 +107,7 @@ public class AuthController {
             session.setAttribute("khachHang", khachHang);
             session.setAttribute("userId", khachHang.getMaKhachHang());
             session.setAttribute("userName", khachHang.getHoTen());
-
+            
             System.out.println("=== Đăng nhập thành công ===");
 
             // Trả về response
