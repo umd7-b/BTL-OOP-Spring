@@ -14,5 +14,6 @@ import com.sportshop.sports_shop.model.GioHang;
 @Repository
 public interface GioHangRepository extends JpaRepository<GioHang, Integer> {
     Optional<GioHang> findByMaKh(Long maKh);
+     
 }
 

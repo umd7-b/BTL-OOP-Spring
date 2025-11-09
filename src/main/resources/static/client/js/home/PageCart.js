@@ -234,7 +234,7 @@
                         return;
                     }
                     // TODO: Chuyển đến trang thanh toán
-                    window.location.href = "/thanhtoan";
+                    window.location.href = "/payment";
 
                 });
             }

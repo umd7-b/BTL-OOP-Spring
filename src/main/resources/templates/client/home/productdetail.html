@@ -148,12 +148,12 @@
         
                     <div class="variant-options"> 
                         <button th:each="bt : ${sanPham.bienThe}"
-                            
                             th:if="${bt.mauSac != null AND bt.kichThuoc != null}"
                             th:attr="data-bienthe-id=${bt.maBienThe}"
-                            th:text="${bt.mauSac} + ' - ' + ${bt.kichThuoc}"
-                            
-                            class="variant-btn" type="button"></button>
+                            th:text="${bt.mauSac + ' - ' + bt.kichThuoc}"
+                            class="variant-btn"
+                            type="button">
+                    </button>
                                 </div>
                                 
                         </div>
@@ -383,6 +383,7 @@
         
     </script>
     <script src="/client/js/home/Cart.js"></script>
+
     <div id="toast" class="toast">Đã thêm vào giỏ hàng!</div>
     </body>
     </html>

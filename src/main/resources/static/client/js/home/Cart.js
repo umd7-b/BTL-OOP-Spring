@@ -314,25 +314,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // 👉 Nút "Mua ngay"
-    const buyNowBtn = $("#buyNowBtn");
-    if (buyNowBtn) {
-        buyNowBtn.addEventListener("click", () => {
-            if (!USER) return redirectToLogin();
-            
-            const variantBtn = $(".variant-btn.active");
-            if (!variantBtn) {
-                alert("⚠️ Bạn chưa chọn phân loại sản phẩm!");
-                return;
-            }
-            
-            // TODO: Chuyển đến trang thanh toán
-            alert("Chức năng mua ngay đang được phát triển!");
-        });
-    }
+   const buyNowBtn = $("#buyNowBtn");
+if (buyNowBtn) {
+    buyNowBtn.addEventListener("click", () => {
+
+        if (!USER) return redirectToLogin();
+
+        // ✅ Kiểm tra biến thể
+        const variantBtn = $(".variant-btn.active");
+        if (!variantBtn) {
+            showToast("⚠️ Bạn chưa chọn phân loại sản phẩm!");
+            return;
+        }
+
+        const variantId = Number(variantBtn.getAttribute("data-bienthe-id"));
+        const qty = Number($("#qty").value || 1);
+
+        const priceText = $(".price .new").textContent.replace(/[^\d]/g, "");
+        const price = Number(priceText);
+
+        // ✅ Lưu vào SESSION — không ảnh hưởng giỏ
+        const buyNowItem = {
+            maBienThe: variantId,
+            soLuong: qty,
+
+        };
+
+        sessionStorage.setItem("BUY_NOW", JSON.stringify(buyNowItem));
+
+        // ✅ Điều hướng payment
+        window.location.href = "/payment";
+    });
+}
 
     // 👉 Nút thanh toán trong giỏ hàng
     const checkoutBtn = $("#checkoutBtn");
     if (checkoutBtn) {
+        sessionStorage.removeItem("BUY_NOW");
         checkoutBtn.addEventListener("click", () => {
             if (CART.length === 0) {
                 alert("Giỏ hàng trống!");

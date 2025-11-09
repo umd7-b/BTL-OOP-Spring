@@ -1,10 +1,20 @@
-// package com.sportshop.sports_shop.repository;
+package com.sportshop.sports_shop.repository;
 
-// import com.sportshop.sports_shop.model.ChiTietDonHang;
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.stereotype.Repository;
+import java.util.List;
 
-// @Repository
-// public interface ChiTietDonHangRepository extends JpaRepository<ChiTietDonHang, Long> {
-//     // Thường thì ít khi cần repo này, vì ta hay lấy chi tiết từ DonHang.chiTietDonHangs
-// }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.sportshop.sports_shop.model.ChiTietDonHang;
+
+@Repository
+public interface ChiTietDonHangRepository extends JpaRepository<ChiTietDonHang, Integer> {
+    
+    // Tìm chi tiết đơn hàng theo mã đơn hàng
+    List<ChiTietDonHang> findByMaDonHang(Integer maDonHang);
+    
+    // Xóa chi tiết đơn hàng theo mã đơn hàng
+    void deleteByMaDonHang(Integer maDonHang);
+}
+
+

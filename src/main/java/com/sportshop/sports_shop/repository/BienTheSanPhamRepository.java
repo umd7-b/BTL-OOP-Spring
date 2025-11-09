@@ -9,5 +9,14 @@ import com.sportshop.sports_shop.model.BienTheSanPham;
 
 @Repository
 public interface BienTheSanPhamRepository extends JpaRepository<BienTheSanPham, Integer> {
-    List<BienTheSanPham> findBySanPhamMaSp(Long maSp);
+    
+    /**
+     * Tìm biến thể theo mã sản phẩm
+     */
+    List<BienTheSanPham> findBySanPhamMaSp(Integer maSp);
+    
+    /**
+     * Tìm biến thể còn hàng - FIX: dùng soLuongTon thay vì soLuong
+     */
+    List<BienTheSanPham> findBySoLuongTonGreaterThan(Integer soLuong);
 }

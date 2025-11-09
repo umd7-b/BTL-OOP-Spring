@@ -1,17 +1,24 @@
 package com.sportshop.sports_shop.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.sportshop.sports_shop.dto.CartItemDTO;
 import com.sportshop.sports_shop.model.ChiTietGioHang;
 import com.sportshop.sports_shop.service.GioHangService;
 import com.sportshop.sports_shop.service.impl.GioHangServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/giohang")
@@ -108,6 +115,8 @@ public class GioHangController {
             return ResponseEntity.ok(response);
             
         } catch (Exception e) {
+             System.err.println("=== ERROR DELETE ===");
+            
             e.printStackTrace();
             Map<String, Object> error = new HashMap<>();
             error.put("success", false);
@@ -117,24 +126,6 @@ public class GioHangController {
     }
 
     // ✅ 5) Tích chọn / bỏ chọn
-    @PutMapping("/chon")
-    public ResponseEntity<?> toggleSelect(@RequestParam Integer maCtGioHang) {
-        try {
-            ChiTietGioHang result = gioHangService.toggleSelect(maCtGioHang);
-            
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("daChon", result.getDaChon());
-            
-            return ResponseEntity.ok(response);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            Map<String, Object> error = new HashMap<>();
-            error.put("success", false);
-            error.put("message", "Lỗi: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-        }
-    }
+    
    
 }

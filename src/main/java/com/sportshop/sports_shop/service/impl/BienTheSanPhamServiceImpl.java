@@ -31,10 +31,10 @@ public class BienTheSanPhamServiceImpl implements BienTheSanPhamService {
 
     @Override
         public List<BienTheSanPham> getByMaSp(int maSp) {
-            return repo.findBySanPhamMaSp(Long.valueOf(maSp));
+            return repo.findBySanPhamMaSp(maSp);
         }
 
         public List<BienTheSanPham> getByMaSp(Long maSp) {
-            return repo.findBySanPhamMaSp(maSp);
+            return repo.findBySanPhamMaSp(maSp.intValue());
         }
 }

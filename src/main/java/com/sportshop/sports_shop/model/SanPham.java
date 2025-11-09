@@ -112,6 +112,14 @@ public class SanPham {
                 )
                 .sum();
     }
+    public BigDecimal getGia() {
+    // Nếu có giá khuyến mãi và > 0 thì dùng giá khuyến mãi
+    if (giaKm != null && giaKm.compareTo(BigDecimal.ZERO) > 0) {
+        return giaKm;
+    }
+    // Ngược lại dùng giá gốc
+    return giaGoc;
+    }
     
 
 }

@@ -3,10 +3,13 @@ package com.sportshop.sports_shop.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.sportshop.sports_shop.dto.CartItemDTO;
 import com.sportshop.sports_shop.model.BienTheSanPham;
 import com.sportshop.sports_shop.model.ChiTietGioHang;
 import com.sportshop.sports_shop.model.GioHang;
@@ -15,8 +18,6 @@ import com.sportshop.sports_shop.repository.BienTheSanPhamRepository;
 import com.sportshop.sports_shop.repository.ChiTietGioHangRepository;
 import com.sportshop.sports_shop.repository.GioHangRepository;
 import com.sportshop.sports_shop.service.GioHangService;
-import com.sportshop.sports_shop.dto.CartItemDTO;
-import java.util.stream.Collectors;
 @Service
 public class GioHangServiceImpl implements GioHangService {
 
@@ -93,6 +94,7 @@ public class GioHangServiceImpl implements GioHangService {
 
     // ✅ 4. Xóa 1 sản phẩm khỏi giỏ
     @Override
+    @Transactional
     public void deleteItem(Long maKhachHang, Integer maBienThe) {
         GioHang cart = getOrCreateCart(maKhachHang.intValue());
         ctRepo.deleteByGioHangMaGioHangAndBienTheMaBienThe(
@@ -139,6 +141,7 @@ public class GioHangServiceImpl implements GioHangService {
         GioHang cart = getOrCreateCart(maKhachHang.intValue());
         return ctRepo.sumTotal(cart.getMaGioHang());
     }
+    
 
     // ✅ 10. Tổng tiền đã chọn
     @Override
@@ -191,5 +194,7 @@ public class GioHangServiceImpl implements GioHangService {
         e.printStackTrace();
         return new ArrayList<>();
     }
-}
+
+    }
+    //11. xoá sản phẩm trong giỏ hàng
 }

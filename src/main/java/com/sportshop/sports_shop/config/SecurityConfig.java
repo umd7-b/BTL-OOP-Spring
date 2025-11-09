@@ -13,28 +13,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // ⚠️ Tắt CSRF để cho phép fetch POST JSON
             .csrf(csrf -> csrf.disable())
 
-            // Cho phép truy cập tất cả (hoặc bạn có thể giới hạn nếu muốn)
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/sanpham/**").permitAll()
+            // ✅ PermitAll hoàn toàn cho login, register và API
+            .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/uploads/**", // <<< CHO PHÉP TRUY CẬP THƯ MỤC UPLOADS
-                    "/client/**", 
-                    "/css/**", 
-                    "/js/**"
+                    "/login",
+                    "/register",
+                    "/logout",
+                    "/api/auth/**",
+                    "/client/**",
+                    "/uploads/**",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**"
                 ).permitAll()
-                .requestMatchers("/register", "/login", "/client/**", "/js/**", "/css/**").permitAll()
                 .anyRequest().permitAll()
             )
 
-            // Vô hiệu hóa form login mặc định của Spring
+            // ✅ Tắt hoàn toàn Spring Security Login page
             .formLogin(form -> form.disable())
-
-            // Cho phép logout
-            
-            .logout(logout -> logout.permitAll());
+            .httpBasic(basic -> basic.disable())
+            .logout(logout -> logout.disable());
 
         return http.build();
     }
