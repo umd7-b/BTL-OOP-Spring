@@ -3,7 +3,9 @@ package com.sportshop.sports_shop.service.impl;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sportshop.sports_shop.dto.CreateOrderRequest;
 import com.sportshop.sports_shop.dto.OrderItemDetailDto;
 import com.sportshop.sports_shop.dto.OrderResponse;
+import com.sportshop.sports_shop.dto.OrderSummaryDto;
 import com.sportshop.sports_shop.model.BienTheSanPham;
 import com.sportshop.sports_shop.model.ChiTietDonHang;
 import com.sportshop.sports_shop.model.DonHang;
@@ -27,6 +30,7 @@ import com.sportshop.sports_shop.service.GioHangService;
 
 @Service
 public class DonHangServiceImpl implements DonHangService {
+    
     
     @Autowired
     private DonHangRepository donHangRepository;
@@ -321,4 +325,97 @@ public class DonHangServiceImpl implements DonHangService {
         
         return response;
     }
+    @Override
+public Map<String, Object> getOrderStatistics() {
+    List<DonHang> allOrders = donHangRepository.findAll();
+    
+    Map<String, Object> stats = new HashMap<>();
+    stats.put("total", allOrders.size());
+    stats.put("choXacNhan", allOrders.stream().filter(o -> "CHO_XAC_NHAN".equals(o.getTrangThai())).count());
+    stats.put("daXacNhan", allOrders.stream().filter(o -> "DA_XAC_NHAN".equals(o.getTrangThai())).count());
+    stats.put("dangGiao", allOrders.stream().filter(o -> "DANG_GIAO".equals(o.getTrangThai())).count());
+    stats.put("daGiao", allOrders.stream().filter(o -> "DA_GIAO".equals(o.getTrangThai())).count());
+    stats.put("daHuy", allOrders.stream().filter(o -> "DA_HUY".equals(o.getTrangThai())).count());
+    
+    return stats;
+}
+
+/**
+ * ✅ 13. Cập nhật trạng thái đơn hàng (Admin)
+ */
+@Override
+@Transactional
+public OrderResponse updateOrderStatus(Integer maDonHang, String newStatus) {
+    DonHang donHang = donHangRepository.findById(maDonHang)
+        .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng #" + maDonHang));
+    
+    OrderResponse response = new OrderResponse();
+    response.setMaDonHang(maDonHang);
+    
+    // Kiểm tra trạng thái hợp lệ
+    List<String> validStatuses = List.of("CHO_XAC_NHAN", "DA_XAC_NHAN", "DANG_GIAO", "DA_GIAO", "DA_HUY");
+    if (!validStatuses.contains(newStatus)) {
+        response.setMessage("Trạng thái không hợp lệ");
+        return response;
+    }
+    
+    String oldStatus = donHang.getTrangThai();
+    donHang.setTrangThai(newStatus);
+    donHangRepository.save(donHang);
+    
+    // Nếu chuyển từ trạng thái khác sang DA_HUY, hoàn lại số lượng
+    if (!"DA_HUY".equals(oldStatus) && "DA_HUY".equals(newStatus)) {
+        List<ChiTietDonHang> chiTietList = chiTietDonHangRepository.findByMaDonHang(maDonHang);
+        for (ChiTietDonHang ct : chiTietList) {
+            Optional<BienTheSanPham> bienTheOpt = bienTheSanPhamRepository.findById(ct.getMaBienThe());
+            if (bienTheOpt.isPresent()) {
+                BienTheSanPham bienThe = bienTheOpt.get();
+                bienThe.setSoLuongTon(bienThe.getSoLuongTon() + ct.getSoLuong());
+                bienTheSanPhamRepository.save(bienThe);
+            }
+        }
+    }
+    
+    response.setTrangThai(newStatus);
+    response.setMessage("Cập nhật trạng thái thành công");
+    
+    return response;
+}
+
+/**
+ * ✅ 14. Xóa đơn hàng (Admin)
+ */
+@Override
+@Transactional
+public void deleteOrder(Integer maDonHang) {
+    DonHang donHang = donHangRepository.findById(maDonHang)
+        .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng #" + maDonHang));
+    
+    // Xóa chi tiết đơn hàng trước
+    chiTietDonHangRepository.deleteByMaDonHang(maDonHang);
+    
+    // Xóa đơn hàng
+    donHangRepository.delete(donHang);
+}
+
+   
+    private OrderSummaryDto convertToSummary(DonHang donHang) {
+    OrderSummaryDto dto = new OrderSummaryDto();
+    dto.setMaDonHang(donHang.getMaDonHang());
+    dto.setMaKh(donHang.getMaKh());
+    dto.setNgayDat(donHang.getNgayDat());
+    dto.setTongTien(donHang.getTongTien());
+    dto.setTrangThai(donHang.getTrangThai());
+    dto.setTenNguoiNhan(donHang.getTenNguoiNhan());
+    return dto;
+    }
+    @Override
+    public List<OrderSummaryDto> getAllOrders() {
+        List<DonHang> list = donHangRepository.findAllByOrderByNgayDatDesc();
+
+        return list.stream()
+                .map(this::convertToSummary)
+                .toList();
+    }
+
 }

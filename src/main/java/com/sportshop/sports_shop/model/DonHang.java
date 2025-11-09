@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,6 +49,7 @@ public class DonHang {
     private String phuongThucThanhToan;
     
     // Quan hệ với KhachHang (nếu cần)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_kh", insertable = false, updatable = false)
     private KhachHang khachHang;
@@ -61,6 +64,7 @@ public class DonHang {
 
     // Quan hệ với ChiTietDonHang
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("donHang") 
     private List<ChiTietDonHang> chiTietDonHangs;
     
     @PrePersist

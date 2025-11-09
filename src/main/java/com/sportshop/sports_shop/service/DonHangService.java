@@ -1,10 +1,12 @@
 package com.sportshop.sports_shop.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sportshop.sports_shop.dto.CreateOrderRequest;
 import com.sportshop.sports_shop.dto.OrderItemDetailDto;
 import com.sportshop.sports_shop.dto.OrderResponse;
+import com.sportshop.sports_shop.dto.OrderSummaryDto;
 import com.sportshop.sports_shop.model.DonHang;
 
 public interface DonHangService {
@@ -57,4 +59,23 @@ public interface DonHangService {
      * Hủy đơn hàng
      */
     OrderResponse huyDonHang(Integer maDonHang);
+     /**
+     * Lấy tất cả đơn hàng (Admin)
+     */
+    List<OrderSummaryDto> getAllOrders();
+    
+    /**
+     * Lấy thống kê đơn hàng
+     */
+    Map<String, Object> getOrderStatistics();
+    
+    /**
+     * Cập nhật trạng thái đơn hàng (Admin)
+     */
+    OrderResponse updateOrderStatus(Integer maDonHang, String newStatus);
+    
+    /**
+     * Xóa đơn hàng (Admin)
+     */
+    void deleteOrder(Integer maDonHang);
 }

@@ -28,5 +28,6 @@ public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
     // Tìm đơn hàng theo nhiều trạng thái
     @Query("SELECT d FROM DonHang d WHERE d.maKh = :maKh AND d.trangThai IN :trangThais ORDER BY d.ngayDat DESC")
     List<DonHang> findByMaKhAndTrangThaiIn(@Param("maKh") Long maKh, @Param("trangThais") List<String> trangThais);
+    List<DonHang> findAllByOrderByNgayDatDesc();
 }
 

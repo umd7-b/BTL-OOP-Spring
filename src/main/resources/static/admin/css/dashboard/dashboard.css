@@ -18,7 +18,7 @@ body {
 /* ==================== SIDEBAR ==================== */
 .sidebar {
     width: 250px;
-    background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
     color: white;
     padding: 20px 0;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);

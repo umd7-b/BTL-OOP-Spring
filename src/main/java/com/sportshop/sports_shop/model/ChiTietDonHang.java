@@ -2,6 +2,8 @@ package com.sportshop.sports_shop.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,15 +43,18 @@ public class ChiTietDonHang {
     // Quan hệ với DonHang
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
+    @JsonIgnoreProperties({"chiTietDonHangs"}) 
     private DonHang donHang;
     
     // Quan hệ với SanPham (nếu cần)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_sp", insertable = false, updatable = false)
+
     private SanPham sanPham;
     
     // Quan hệ với BienTheSanPham (nếu cần)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_bien_the", insertable = false, updatable = false)
+
     private BienTheSanPham bienThe;
 }
