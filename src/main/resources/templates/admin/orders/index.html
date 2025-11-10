@@ -609,14 +609,7 @@
                 <i>🛒</i>
                 <span>Đơn hàng</span>
             </div>
-            <div class="menu-item" onclick="navigateTo('analytics')">
-                <i>📈</i>
-                <span>Thống kê</span>
-            </div>
-            <div class="menu-item" onclick="navigateTo('settings')">
-                <i>⚙️</i>
-                <span>Cài đặt</span>
-            </div>
+            
         </div>
 
         <!-- Main Content -->
@@ -779,7 +772,7 @@
                 
                 const orders = await response.json();
                 allOrders = orders.map(order => ({
-                    id: '#DH' + String(order.maDonHang).padStart(3, '0'),
+                    id:order.maDonHang,
                     maDonHang: order.maDonHang,
                     customer: order.tenNguoiNhan || 'Không có tên',
                     phone: order.sdtNguoiNhan || '',
@@ -943,7 +936,7 @@
                 const orderData = data.order;
                 const items = data.items;
                 
-                document.getElementById('modalOrderId').textContent = '#DH' + String(maDonHang).padStart(3, '0');
+                document.getElementById('modalOrderId').textContent = maDonHang;
                 document.getElementById('modalCustomer').textContent = orderData.tenNguoiNhan || 'N/A';
                 document.getElementById('modalPhone').textContent = orderData.sdtNguoiNhan || 'N/A';
                 document.getElementById('modalAddress').textContent = orderData.diaChiNguoiNhan || 'N/A';

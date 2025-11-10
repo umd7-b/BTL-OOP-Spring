@@ -59,6 +59,39 @@ public class DonHangServiceImpl implements DonHangService {
                 throw new RuntimeException("Không có sản phẩm nào trong đơn hàng!");
             }
 
+                List<String> errors = new ArrayList<>();
+        for (var item : request.getItems()) {
+            Optional<BienTheSanPham> bienTheOpt = bienTheSanPhamRepository.findById(item.getMaBienThe());
+            
+            if (!bienTheOpt.isPresent()) {
+                errors.add("Sản phẩm (ID: " + item.getMaBienThe() + ") không tồn tại");
+                continue;
+            }
+            
+            BienTheSanPham bienThe = bienTheOpt.get();
+            
+            // Kiểm tra số lượng tồn kho
+            if (bienThe.getSoLuongTon() < item.getSoLuong()) {
+                String tenSp = bienThe.getSanPham() != null ? bienThe.getSanPham().getTenSp() : "Sản phẩm";
+                errors.add(tenSp + " chỉ còn " + bienThe.getSoLuongTon() + " sản phẩm trong kho");
+            }
+            
+            // Kiểm tra sản phẩm hết hàng
+            if (bienThe.getSoLuongTon() <= 0) {
+                String tenSp = bienThe.getSanPham() != null ? bienThe.getSanPham().getTenSp() : "Sản phẩm";
+                errors.add(tenSp + " đã hết hàng");
+            }
+        }
+        
+        // Nếu có lỗi, trả về thông báo
+        if (!errors.isEmpty()) {
+            throw new RuntimeException(String.join("; ", errors));
+        }
+
+
+
+
+
             // ✅ 2. Tính tổng tiền từ FE gửi lên
             BigDecimal tongTien = request.getItems().stream()
                     .map(item -> BigDecimal.valueOf(item.getDonGia())
@@ -80,19 +113,36 @@ public class DonHangServiceImpl implements DonHangService {
             DonHang savedDonHang = donHangRepository.save(donHang);
 
             // ✅ 4. Lưu chi tiết đơn hàng từ FE
-            request.getItems().forEach(item -> {
-                ChiTietDonHang ct = new ChiTietDonHang();
-                ct.setMaDonHang(savedDonHang.getMaDonHang());
-                ct.setMaBienThe(item.getMaBienThe());
-                ct.setMaSp(item.getMaSp());
-                ct.setSoLuong(item.getSoLuong());
-                ct.setGia(BigDecimal.valueOf(item.getDonGia()));
+            // ✅ 4. Lưu chi tiết đơn hàng từ FE
+    request.getItems().forEach(item -> {
+  ChiTietDonHang ct = new ChiTietDonHang();
+   ct.setMaDonHang(savedDonHang.getMaDonHang());
+  ct.setMaBienThe(item.getMaBienThe());
+   ct.setMaSp(item.getMaSp());
+    ct.setSoLuong(item.getSoLuong());
+    ct.setGia(BigDecimal.valueOf(item.getDonGia()));
+    
+    chiTietDonHangRepository.save(ct);
 
-                chiTietDonHangRepository.save(ct);
+    // Trừ số lượng tồn kho
+    BienTheSanPham bt = bienTheSanPhamRepository.findById(item.getMaBienThe())
+     .orElseThrow(() -> new RuntimeException("Biến thể không tồn tại"));
+    System.out.println("TRƯỚC KHI TRỪ: " + bt.getSoLuongTon());
+    bt.setSoLuongTon(bt.getSoLuongTon() - item.getSoLuong());
+    bienTheSanPhamRepository.save(bt);
+    System.out.println("SAU KHI TRỪ: " + bt.getSoLuongTon());
 
-                // ✅ Xoá khỏi giỏ hàng
-                gioHangService.deleteItem(request.getMaKhachHang(), item.getMaBienThe());
-            });
+    // ✅ Xoá khỏi giỏ hàng (ĐÃ SỬA LỖI)
+    // Chúng ta bẫy lỗi ở đây để nó không làm hỏng transaction chính
+    try {
+    gioHangService.deleteItem(request.getMaKhachHang(), item.getMaBienThe());
+    } catch (Exception e) {
+    // Ghi log lỗi này lại nhưng KHÔNG ném exception ra ngoài
+    System.err.println("Lỗi khi xoá sản phẩm " + item.getMaBienThe() + 
+                    " khỏi giỏ hàng: " + e.getMessage());
+    // Bạn có thể dùng logger chuyên nghiệp hơn ở đây
+    }
+    });
 
             // ✅ 5. Tạo response trả về FE
             OrderResponse res = new OrderResponse();

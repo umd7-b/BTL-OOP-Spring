@@ -39,7 +39,13 @@
             } else {
                 dto.put("anhSp", "no-image.png");
             }
+            dto.put("soLuongTon", bt.getSoLuongTon());
 
+            if (sp.getDanhSachAnh() != null && !sp.getDanhSachAnh().isEmpty()) {
+                dto.put("anhSp", sp.getDanhSachAnh().get(0).getLinkAnh());
+            } else {
+                dto.put("anhSp", "no-image.png");
+            }
             return ResponseEntity.ok(dto);
         }
     }
