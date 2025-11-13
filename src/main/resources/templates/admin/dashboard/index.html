@@ -55,91 +55,60 @@
             </div>
 
             <div class="content">
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card blue">
-                        <h3>Tổng người dùng</h3>
-                        <div class="number">1,234</div>
-                    </div>
-                    <div class="stat-card green">
-                        <h3>Doanh thu</h3>
-                        <div class="number">$45,678</div>
-                    </div>
-                    <div class="stat-card orange">
-                        <h3>Đơn hàng</h3>
-                        <div class="number">567</div>
-                    </div>
-                    <div class="stat-card red">
-                        <h3>Sản phẩm</h3>
-                        <div class="number">89</div>
-                    </div>
-                </div>
 
-                <!-- Data Table -->
-                <div class="data-table">
-                    <h2>Đơn hàng gần đây</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Khách hàng</th>
-                                <th>Sản phẩm</th>
-                                <th>Giá trị</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#001</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>Laptop Dell XPS</td>
-                                <td>$1,299</td>
-                                <td><span class="status active">Đã giao</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Trần Thị B</td>
-                                <td>iPhone 15 Pro</td>
-                                <td>$999</td>
-                                <td><span class="status pending">Đang xử lý</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#003</td>
-                                <td>Lê Văn C</td>
-                                <td>Samsung Galaxy S24</td>
-                                <td>$899</td>
-                                <td><span class="status active">Đã giao</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#004</td>
-                                <td>Phạm Thị D</td>
-                                <td>MacBook Pro M3</td>
-                                <td>$2,499</td>
-                                <td><span class="status inactive">Đã hủy</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <!-- ✅ Bộ lọc chọn ngày -->
+    <div class="date-filter">
+        <label>Từ ngày:</label>
+        <input type="date" id="startDate">
+
+        <label>Đến ngày:</label>
+        <input type="date" id="endDate">
+
+        <button class="filter-btn" onclick="applyDateFilter()">Lọc</button>
+    </div>
+
+    <!-- ✅ Stats Cards – dynamic, không còn dữ liệu tĩnh -->
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <h3>Tổng người dùng</h3>
+            <div id="totalUsers" class="number">0</div>
+        </div>
+        <div class="stat-card green">
+            <h3>Doanh thu</h3>
+            <div id="totalRevenue" class="number">0₫</div>
+        </div>
+        <div class="stat-card orange">
+            <h3>Đơn hàng</h3>
+            <div id="totalOrders" class="number">0</div>
+        </div>
+        <div class="stat-card red">
+            <h3>Sản phẩm</h3>
+            <div id="totalProducts" class="number">0</div>
         </div>
     </div>
+
+    <!-- ✅ Bảng Đơn hàng gần đây – load từ API -->
+    <div class="data-table">
+        <h2>Đơn hàng gần đây</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Khách hàng</th>
+                    <th>Giá trị</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày đặt</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <!-- ✅ Sẽ được JS thêm tự động -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 
     <script th:src="@{/admin/js/auth.js}"></script>
     <script th:src="@{/admin/js/dashboard/dashboard.js}"></script>

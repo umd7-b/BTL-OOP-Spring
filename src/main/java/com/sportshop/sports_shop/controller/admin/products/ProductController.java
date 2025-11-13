@@ -275,6 +275,58 @@ public String updateProduct(
         res.put("message","Xóa sản phẩm thành công");
         return ResponseEntity.ok(res);
     }
+    @DeleteMapping("/{productId}/images/{imageId}")
+@ResponseBody
+public ResponseEntity<?> deleteProductImage(
+        @PathVariable Integer productId, 
+        @PathVariable Long imageId) {
+    try {
+        System.out.println("=== DEBUG DELETE IMAGE ===");
+        System.out.println("Product ID from URL: " + productId);
+        System.out.println("Image ID from URL: " + imageId);
+        
+        // Tìm ảnh theo ID
+        AnhSanPham image = anhSanPhamService.findById(imageId)
+            .orElseThrow(() -> new RuntimeException("Không tìm thấy ảnh với ID: " + imageId));
+        
+        System.out.println("Found image: " + image.getMaAnh());
+        System.out.println("Image belongs to product: " + image.getSanPham().getMaSp());
+        
+        // ✅ SỬA LẠI PHẦN SO SÁNH
+        Long productIdLong = productId.longValue();
+        Long imageSanPhamId = image.getSanPham().getMaSp().longValue();
+        
+        System.out.println("Comparing: " + productIdLong + " vs " + imageSanPhamId);
+        
+        if (!productIdLong.equals(imageSanPhamId)) {
+            System.out.println("ERROR: Product ID mismatch!");
+            return ResponseEntity.status(403)
+                .body(Map.of("message", "Không có quyền xóa ảnh này. Product mismatch: " + productIdLong + " vs " + imageSanPhamId));
+        }
+        
+        System.out.println("Product ID matched! Proceeding to delete...");
+        
+        // Xóa file vật lý
+        try {
+            fileStorageService.delete(image.getLinkAnh());
+            System.out.println("Deleted physical file: " + image.getLinkAnh());
+        } catch (Exception e) {
+            System.err.println("Không thể xóa file: " + e.getMessage());
+        }
+        
+        // Xóa record trong database
+        anhSanPhamService.delete(imageId);
+        System.out.println("Deleted from database successfully!");
+        
+        return ResponseEntity.ok()
+            .body(Map.of("message", "Xóa ảnh thành công"));
+            
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(500)
+            .body(Map.of("message", "Lỗi: " + e.getMessage()));
+    }
+}
    
 }
 

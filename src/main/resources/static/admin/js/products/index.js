@@ -293,7 +293,7 @@ document.getElementById('addForm').addEventListener('submit', function(event) {
     })
     .catch(error => {
         console.error('Lỗi khi gửi form:', error);
-        alert('Có lỗi nghiêm trọng xảy ra. Vui lòng thử lại.');
+        alert('Có lỗi xảy ra. Vui lòng thử lại.');
     });
 });
 

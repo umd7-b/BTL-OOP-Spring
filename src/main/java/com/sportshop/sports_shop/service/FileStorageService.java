@@ -2,9 +2,6 @@
 
 package com.sportshop.sports_shop.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -12,6 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service // <-- Quan trọng!
 public class FileStorageService {
@@ -25,6 +25,14 @@ public class FileStorageService {
             Files.createDirectories(root);
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!", e);
+        }
+    }
+    public void delete(String filename) {
+        try {
+            Path file = this.root.resolve(filename);
+            Files.deleteIfExists(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Không thể xóa file: " + filename, e);
         }
     }
 

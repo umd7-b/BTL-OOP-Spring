@@ -237,7 +237,7 @@
 
         // Xem chi tiết đơn hàng (Hàm này đã đúng, gọi View)
         viewDetail(maDonHang) {
-            window.location.href = `/order/${maDonHang}`;
+            window.location.href = `/order/detail/${maDonHang}`;
         }
 
         // Hủy đơn hàng

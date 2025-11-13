@@ -18,6 +18,7 @@ public class SecurityConfig {
             // ✅ PermitAll hoàn toàn cho login, register và API
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
+                    "/admin/**",
                     "/login",
                     "/register",
                     "/logout",

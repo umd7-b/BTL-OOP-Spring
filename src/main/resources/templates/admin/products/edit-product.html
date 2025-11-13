@@ -62,6 +62,10 @@
         .btn-remove-variant:hover {
             background: #c82333;
         }
+        .delete-image-btn:hover {
+        background: #c82333 !important;
+        transform: scale(1.1);
+    }
     </style>
 
 
@@ -294,24 +298,40 @@
 
 
                     <!-- Ảnh hiện tại -->
-                    <div class="form-group">
-                        <label>Ảnh hiện tại</label>
-                        <div class="image-preview-container">
+                   
+<div class="form-group">
+    <label>Ảnh hiện tại</label>
+    <div class="image-preview-container">
 
+        <div th:each="img : ${product.danhSachAnh}" 
+             style="position: relative; display: inline-block; margin-right: 10px; margin-bottom: 10px;">
+            
+            <img th:src="@{'/uploads/products/' + ${img.linkAnh}}"
+                 style="width:80px;height:80px;object-fit:cover;border-radius:6px;">
+            
+            <button type="button" 
+                    class="delete-image-btn"
+                    th:data-image-id="${img.maAnh}"
+                    onclick="deleteImage(this)"
+                    style="position: absolute; top: -8px; right: -8px; 
+                           background: #dc3545; color: white; border: none; 
+                           border-radius: 50%; width: 24px; height: 24px; 
+                           cursor: pointer; font-size: 16px; font-weight: bold;
+                           display: flex; align-items: center; justify-content: center;
+                           box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                           transition: all 0.2s;">
+                ×
+            </button>
+        </div>
 
-                            <div th:each="img : ${product.danhSachAnh}">
-                                <img th:src="@{'/uploads/products/' + ${img.linkAnh}}"
-                                     style="width:80px;height:80px;object-fit:cover;border-radius:6px;margin-right:10px;">
-                            </div>
+        <div th:if="${#lists.isEmpty(product.danhSachAnh)}">
+            <p>Không có ảnh</p>
+        </div>
 
+    </div>
+</div>
 
-                            <div th:if="${#lists.isEmpty(product.danhSachAnh)}">
-                                <p>Không có ảnh</p>
-                            </div>
-
-
-                        </div>
-                    </div>
+                    
 
 
                     <!-- Upload ảnh mới -->
@@ -426,6 +446,64 @@
             });
         });
     }
+    function deleteImage(button) {
+    const imageId = button.getAttribute('data-image-id');
+    const productId = document.querySelector('input[name="maSp"]').value;
+    
+    console.log('=== DEBUG DELETE IMAGE ===');
+    console.log('Product ID:', productId);
+    console.log('Image ID:', imageId);
+    console.log('Image ID type:', typeof imageId);
+    
+    if (confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
+        const url = `/admin/products/${productId}/images/${imageId}`;
+        console.log('DELETE URL:', url);
+        
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response ok:', response.ok);
+            
+            // Đọc response body để xem thông báo lỗi
+            return response.json().then(data => {
+                console.log('Response data:', data);
+                return { status: response.status, ok: response.ok, data: data };
+            }).catch(() => {
+                return { status: response.status, ok: response.ok, data: null };
+            });
+        })
+        .then(result => {
+            console.log('Final result:', result);
+            
+            if (result.ok) {
+                // Xóa element ảnh khỏi DOM
+                button.parentElement.remove();
+                
+                // Kiểm tra nếu không còn ảnh nào, hiển thị thông báo
+                const container = document.querySelector('.image-preview-container');
+                const images = container.querySelectorAll('img');
+                if (images.length === 0) {
+                    container.innerHTML = '<p>Không có ảnh</p>';
+                }
+                
+                alert('Đã xóa ảnh thành công!');
+            } else if (result.status === 403) {
+                alert('Lỗi 403: Không có quyền xóa ảnh!\n' + JSON.stringify(result.data));
+            } else {
+                alert('Lỗi khi xóa ảnh! Status: ' + result.status + '\n' + JSON.stringify(result.data));
+            }
+        })
+        .catch(error => {
+            console.error('Fetch Error:', error);
+            alert('Có lỗi xảy ra khi xóa ảnh: ' + error.message);
+        });
+    }
+}
 </script>
 
 

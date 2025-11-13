@@ -15,7 +15,7 @@ public class RenderTrangDonHang {
     }
 
     // (2) BỔ SUNG: Controller cho trang CHI TIẾT
-    @GetMapping("/order/{maDonHang}")
+    @GetMapping("/order/detail/{maDonHang}")
     public String orderDetailPage(@PathVariable Integer maDonHang) {
         // Bạn sẽ cần tạo một file HTML mới tên là order-detail.html
         // để hiển thị chi tiết đơn hàng này

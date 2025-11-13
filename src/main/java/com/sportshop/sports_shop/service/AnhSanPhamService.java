@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,12 @@ public class AnhSanPhamService {
     public void deleteByMaSp(Long maSp) {
         List<AnhSanPham> images = repo.findBySanPhamMaSp(maSp.intValue());
         repo.deleteAll(images);
+    }
+    public Optional<AnhSanPham> findById(Long id) {
+        return repo.findById(id.intValue());
+    }
+
+    public void delete(Long id) {
+        repo.deleteById(id.intValue());
     }
 }
