@@ -113,6 +113,7 @@
     </header>
   
     <section class="hero" id="heroSection" aria-label="Khuyến mãi nổi bật">
+       <img class="side-messi" src="/uploads/banner/messi.jpg" alt="">
       <div class="banner" id="banner">
         <div class="slides">
           <div
@@ -122,8 +123,11 @@
             "
           >
             <div>
-              <h2>SIÊU SALE FUTSAL • GIẢM ĐẾN 50%</h2>
-              <p>Chỉ trong tuần này – đặt nhanh kẻo hết size!</p>
+              <a href="#" style="display: block; width: 100%; height: auto; line-height: 0;">
+              <img th:src="@{/uploads/banner/banner.jpg}" 
+                 alt="Lowtech Sport Shop Banner" 
+                 style="width: 100%;display: block;"/>
+          </a>
             </div>
           </div>
           <div
@@ -161,8 +165,11 @@
           <h3>Voucher thành viên</h3>
           <small>Đăng ký nhận ngay mã -30K</small>
         </div>
+        
       </div>
+       <img class="side-messi" src="/uploads/banner/goat.jpg" alt="">
     </section>
+
    
 
     <div class="toolbar" id="toolbar">
@@ -486,6 +493,8 @@ function addMenuListeners() {
 }
     </script>
   <script src="/client/js/home/Cart.js" defer></script>
+
+
 
 
   </body>
