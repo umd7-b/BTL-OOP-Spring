@@ -19,42 +19,39 @@ import lombok.Data;
 @Table(name = "chi_tiet_don_hang")
 @Data
 public class ChiTietDonHang {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ma_ct_don_hang")
     private Integer maCtDonHang;
-    
+
     @Column(name = "ma_don_hang", nullable = false)
     private Integer maDonHang;
-    
-    @Column(name = "ma_sp", nullable = true)
+
+    @Column(name = "ma_sp")
     private Integer maSp;
-    
+
     @Column(name = "ma_bien_the", nullable = false)
     private Integer maBienThe;
-    
+
     @Column(name = "so_luong", nullable = false)
     private Integer soLuong;
-    
+
     @Column(name = "gia", nullable = false)
     private BigDecimal gia;
-    
-    // Quan hệ với DonHang
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_don_hang", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"chiTietDonHangs"}) 
+    @JsonIgnoreProperties({"chiTietDonHangs", "khachHang"})
     private DonHang donHang;
-    
-    // Quan hệ với SanPham (nếu cần)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_sp", insertable = false, updatable = false)
-
+    @JsonIgnoreProperties({"danhSachAnh", "bienThes", "chiTietDonHangs"})
     private SanPham sanPham;
-    
-    // Quan hệ với BienTheSanPham (nếu cần)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_bien_the", insertable = false, updatable = false)
-
+    @JsonIgnoreProperties({"sanPham", "chiTietDonHangs"})
     private BienTheSanPham bienThe;
 }

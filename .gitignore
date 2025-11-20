@@ -34,3 +34,4 @@ build/
 
 ### file uploads ảnh
 /src/resources/static/uploads/
+/pom.xml

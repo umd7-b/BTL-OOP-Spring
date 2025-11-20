@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +57,7 @@
             <div class="content">
 
     <!-- ✅ Bộ lọc chọn ngày -->
-    <div class="date-filter">
+    <!-- <div class="date-filter">
         <label>Từ ngày:</label>
         <input type="date" id="startDate">
 
@@ -65,7 +65,7 @@
         <input type="date" id="endDate">
 
         <button class="filter-btn" onclick="applyDateFilter()">Lọc</button>
-    </div>
+    </div> -->
 
     <!-- ✅ Stats Cards – dynamic, không còn dữ liệu tĩnh -->
     <div class="stats-grid">
@@ -88,29 +88,48 @@
     </div>
 
     <!-- ✅ Bảng Đơn hàng gần đây – load từ API -->
-    <div class="data-table">
-        <h2>Đơn hàng gần đây</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Khách hàng</th>
-                    <th>Giá trị</th>
-                    <th>Trạng thái</th>
-                    <th>Ngày đặt</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody id="orderTableBody">
-                <!-- ✅ Sẽ được JS thêm tự động -->
-            </tbody>
-        </table>
-    </div>
+        <div class="data-table">
+                        <div class="analytics-header">
+                            <h2>📈 Thống kê & Biểu đồ</h2>
+                            
+                            <!-- Bộ lọc thời gian -->
+                            <div class="analytics-filter">
+                                <div class="filter-tabs">
+                                    <button class="filter-tab active" onclick="changeTimeFilter('day')">Ngày</button>
+                                    <button class="filter-tab" onclick="changeTimeFilter('month')">Tháng</button>
+                                    <button class="filter-tab" onclick="changeTimeFilter('year')">Năm</button>
+                                    
+                                </div>
+                                
+                                <!-- Date Range Picker - ẩn mặc định -->
+                                
+                            </div>
+                        </div>
 
-</div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-container">
+                            <canvas id="analyticsChart"></canvas>
+                            <div class="chart-placeholder">
+                                
+                            </div>
+                        </div>
+
+
+                        <!-- Thống kê chi tiết -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
     <script th:src="@{/admin/js/auth.js}"></script>
     <script th:src="@{/admin/js/dashboard/dashboard.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
-</html>
+</html> 

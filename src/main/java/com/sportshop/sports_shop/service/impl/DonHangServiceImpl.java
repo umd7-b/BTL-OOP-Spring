@@ -1,5 +1,6 @@
 package com.sportshop.sports_shop.service.impl;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -467,5 +468,16 @@ public void deleteOrder(Integer maDonHang) {
                 .map(this::convertToSummary)
                 .toList();
     }
+    @Override
+public long countOrdersByKhachHang(Long maKh) {
+    return donHangRepository.countByMaKh(maKh);
+}
+
+@Override
+public long countPendingOrdersByKhachHang(Long maKh) {
+    return donHangRepository.countPendingOrdersByKhachHang(maKh);
+}
+
+
 
 }

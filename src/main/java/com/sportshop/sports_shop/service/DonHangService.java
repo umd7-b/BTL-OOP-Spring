@@ -74,8 +74,9 @@ public interface DonHangService {
      */
     OrderResponse updateOrderStatus(Integer maDonHang, String newStatus);
     
-    /**
-     * Xóa đơn hàng (Admin)
-     */
+   
     void deleteOrder(Integer maDonHang);
+    long countOrdersByKhachHang(Long maKh);
+        long countPendingOrdersByKhachHang(Long maKh);
+
 }
