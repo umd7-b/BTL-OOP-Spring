@@ -94,7 +94,7 @@
     }
     else if (this.currentTab === "DANG_GIAO") {
         filtered = filtered.filter(o =>
-            o.trangThai === "DA_XAC_NHAN" || o.trangThai === "DANG_GIAO"
+             o.trangThai === "DANG_GIAO"
         );
     }
     else if (this.currentTab === "DA_GIAO") {
@@ -293,9 +293,7 @@
         formatPaymentMethod(method) {
             const methodMap = {
                 'TIEN_MAT': 'Tiền mặt',
-                'CHUYEN_KHOAN': 'Chuyển khoản',
-                'THE': 'Thẻ ngân hàng',
-                'VI_DIEN_TU': 'Ví điện tử'
+                
             };
             
             return methodMap[method] || method || 'N/A';

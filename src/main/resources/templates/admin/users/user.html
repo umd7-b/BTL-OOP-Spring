@@ -1,146 +1,311 @@
-<!-- <!DOCTYPE html>
-<html lang="vi">
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" th:href="@{/admin/css/dashboard/dashboard.css}">
-    
+    <title>Quản lý người dùng</title>
+
+    <link rel="stylesheet" th:href="@{/admin/css/users/user.css}">
 </head>
+
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2>🎯 Admin Panel</h2>
-            </div>
-            <div class="menu-item active" onclick="showSection('dashboard')">
-                <i>📊</i>
-                <span>Dashboard</span>
-            </div>
-            <div class="menu-item" onclick="showSection('users')">
-                <i>👥</i>
-                <span>Người dùng</span>
-            </div>
-            <div class="menu-item" onclick="showSection('products')">
-                <i>📦</i>
-                <span>Sản phẩm</span>
-            </div>
-            <div class="menu-item" onclick="showSection('orders')">
-                <i>🛒</i>
-                <span>Đơn hàng</span>
-            </div>
-           
+
+<div class="container">
+
+    <!-- ================= SIDEBAR ================= -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>🎯 Admin Panel</h2>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="header">
-                <h1>Dashboard</h1>
-                <div class="user-info" onclick="toggleDropdown(event)">
-                    <span>Admin User</span>
-                    <div class="user-avatar">A</div>
-                    <span class="dropdown-arrow">▼</span>
-                    
-                    <!-- Dropdown Menu -->
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <div class="dropdown-item logout" onclick="handleLogout(event)">
-                            <span class="dropdown-icon">🚪</span>
-                            <span>Đăng xuất</span>
-                            <span class="logout-spinner" id="logoutSpinner"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="menu-item" onclick="location.href='/admin/dashboard'">
+            <i>📊</i> <span>Dashboard</span>
+        </div>
 
-            <div class="content">
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card blue">
-                        <h3>Tổng người dùng</h3>
-                        <div class="number">1,234</div>
-                    </div>
-                    <div class="stat-card green">
-                        <h3>Doanh thu</h3>
-                        <div class="number">$45,678</div>
-                    </div>
-                    <div class="stat-card orange">
-                        <h3>Đơn hàng</h3>
-                        <div class="number">567</div>
-                    </div>
-                    <div class="stat-card red">
-                        <h3>Sản phẩm</h3>
-                        <div class="number">89</div>
-                    </div>
-                </div>
+        <div class="menu-item active" onclick="location.href='/admin/users'">
+            <i>👥</i> <span>Người dùng</span>
+        </div>
 
-                <!-- Data Table -->
-                <div class="data-table">
-                    <h2>Đơn hàng gần đây</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Khách hàng</th>
-                                <th>Sản phẩm</th>
-                                <th>Giá trị</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#001</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>Laptop Dell XPS</td>
-                                <td>$1,299</td>
-                                <td><span class="status active">Đã giao</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#002</td>
-                                <td>Trần Thị B</td>
-                                <td>iPhone 15 Pro</td>
-                                <td>$999</td>
-                                <td><span class="status pending">Đang xử lý</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#003</td>
-                                <td>Lê Văn C</td>
-                                <td>Samsung Galaxy S24</td>
-                                <td>$899</td>
-                                <td><span class="status active">Đã giao</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#004</td>
-                                <td>Phạm Thị D</td>
-                                <td>MacBook Pro M3</td>
-                                <td>$2,499</td>
-                                <td><span class="status inactive">Đã hủy</span></td>
-                                <td>
-                                    <button class="btn btn-primary">Xem</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="menu-item" onclick="location.href='/admin/products'">
+            <i>📦</i> <span>Sản phẩm</span>
+        </div>
+
+        <div class="menu-item" onclick="location.href='/admin/orders'">
+            <i>🛒</i> <span>Đơn hàng</span>
         </div>
     </div>
 
-    <script th:src="@{/admin/js/auth.js}"></script>
-    <script th:src="@{/admin/js/dashboard/dashboard.js}"></script>
+    <!-- ================= MAIN CONTENT ================= -->
+    <div class="main-content">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Quản lý người dùng</h1>
+
+            <div class="user-info" onclick="toggleDropdown(event)">
+                <span>Admin</span>
+                <div class="user-avatar">A</div>
+                <span class="dropdown-arrow">▼</span>
+
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item logout" onclick="handleLogout(event)">
+                        🚪 <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <h2 class="section-title">Danh sách người dùng</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Mã KH</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>SĐT</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.maKhachHang}"></td>
+                    <td th:text="${u.hoTen}"></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.soDienThoai}"></td>
+                    <td th:text="${#temporals.format(u.ngayDangKy,'dd/MM/yyyy')}"></td>
+
+                    <td>
+                            <button class="btn-view" 
+                                    th:onclick="'viewUserDetail(' + ${u.maKhachHang} + ')'">
+                                👁 Xem
+                            </button>
+
+                            <button class="btn-danger" 
+                                    th:onclick="'deleteUser(' + ${u.maKhachHang} + ')'">
+                                🗑 Xóa
+                            </button>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL CHI TIẾT NGƯỜI DÙNG ================= -->
+<div id="userDetailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Chi tiết người dùng</h2>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Đang tải dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== DROPDOWN MENU ==========
+    function toggleDropdown(e) {
+        e.stopPropagation();
+        document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click", function () {
+        document.getElementById("dropdownMenu").classList.remove("show");
+    });
+
+    function handleLogout(e) {
+        e.stopPropagation();
+        
+        if (confirm('Bạn có chắc muốn đăng xuất?')) {
+            window.location.href = '/admin/logout';
+        }
+    }
+
+    // ========== XEM CHI TIẾT NGƯỜI DÙNG ==========
+    function viewUserDetail(userId) {
+        const modal = document.getElementById('userDetailModal');
+        const modalBody = document.getElementById('modalBody');
+        
+        // Hiển thị modal với loading
+        modal.style.display = 'block';
+        modalBody.innerHTML = `
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Đang tải dữ liệu...</p>
+            </div>
+        `;
+        
+        // Gọi API lấy dữ liệu
+        fetch(`/admin/users/${userId}/detail`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Không thể tải dữ liệu');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayUserDetail(data);
+            })
+            .catch(error => {
+                modalBody.innerHTML = `
+                    <div class="no-orders">
+                        <p style="color: #e74c3c;">❌ ${error.message}</p>
+                    </div>
+                `;
+            });
+    }
+
+    function displayUserDetail(data) {
+    const modalBody = document.getElementById('modalBody');
+    const user = data.user;
+
+    const totalOrders = data.totalOrders || 0;
+
+    modalBody.innerHTML = `
+        <div class="user-detail-section">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">${totalOrders}</div>
+                    <div class="stat-label">Tổng đơn hàng</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-detail-section">
+            <h3>Thông tin cá nhân</h3>
+            <div class="detail-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">Mã khách hàng</span>
+                    <span class="detail-value">#${user.maKhachHang}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Tên đăng nhập</span>
+                    <span class="detail-value">${user.username || 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Họ và tên</span>
+                    <span class="detail-value">${user.ho_ten || 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Email</span>
+                    <span class="detail-value">${user.email || 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Số điện thoại</span>
+                    <span class="detail-value">${user.so_dien_thoai || 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Giới tính</span>
+                    <span class="detail-value">${user.gioi_tinh || 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Ngày sinh</span>
+                    <span class="detail-value">${user.ngay_sinh ? formatDate(user.ngay_sinh) : 'N/A'}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Ngày đăng ký</span>
+                    <span class="detail-value">${formatDate(user.ngayDangKy)}</span>
+                </div>
+            </div>
+
+            <div class="detail-item" style="margin-top: 15px;">
+                <span class="detail-label">Địa chỉ</span>
+                <span class="detail-value">${user.dia_chi || 'N/A'}</span>
+            </div>
+        </div>
+    `;
+}
+
+
+    // ========== XÓA NGƯỜI DÙNG ==========
+    function deleteUser(userId) {
+        if (!confirm('Bạn có chắc chắn muốn xóa người dùng này?\n\nLưu ý: Không thể xóa nếu có đơn hàng đang xử lý.')) {
+            return;
+        }
+        
+        fetch(`/admin/users/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.message.includes('thành công')) {
+                location.reload();
+            }
+        })
+        .catch(error => {
+            alert('Có lỗi xảy ra: ' + error.message);
+        });
+    }
+
+    // ========== ĐÓNG MODAL ==========
+    function closeModal() {
+        document.getElementById('userDetailModal').style.display = 'none';
+    }
+
+    // Click outside modal to close
+    window.onclick = function(event) {
+        const modal = document.getElementById('userDetailModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // ========== HELPER FUNCTIONS ==========
+    function getStatusClass(status) {
+        const statusMap = {
+            'Chờ xử lý': 'status-pending',
+            'Đang xử lý': 'status-processing',
+            'Đang giao hàng': 'status-shipping',
+            'Hoàn thành': 'status-completed',
+            'Đã hủy': 'status-cancelled'
+        };
+        return statusMap[status] || 'status-pending';
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function formatMoney(amount) {
+        if (!amount) return '0đ';
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(amount);
+    }
+</script>
+
 </body>
-</html> -->
+</html>

@@ -16,12 +16,7 @@ public class AdminMainController {
 
 
 
-    @GetMapping("/admin/users")
-    public String users(HttpSession session, Model model) {
-        if (!isAuthenticated(session)) return "redirect:/admin/login";
-        model.addAttribute("pageTitle", "Quản lý người dùng");
-        return "admin/users/index";
-    }
+   
 
     
     @GetMapping("/admin/products")
