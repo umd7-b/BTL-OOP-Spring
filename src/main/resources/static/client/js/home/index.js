@@ -28,8 +28,42 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const data = await response.json();
 
                     list.innerHTML = data
-                        .map((item) => `<li><a href="#">${item[labelKey]}</a></li>`)
+                        .map((item) => `
+        <li>
+            <a href="#"
+               class="dropdown-item"
+               data-id="${item.maThuongHieu || item.maMonTheThao || item.maDanhMuc}"
+               data-type="${labelKey}">
+               ${item[labelKey]}
+            </a>
+        </li>
+    `)
                         .join("");
+                    list.querySelectorAll(".dropdown-item").forEach(a => {
+                        a.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            list.classList.remove("show");
+
+                            const id = a.dataset.id;
+                            const type = a.dataset.type;
+
+                            // Gán vào filter tương ứng
+                            if (type === "tenThuongHieu") {
+                                document.getElementById("filterBrand").value = id;
+                            }
+                            else if (type === "tenMonTheThao") {
+                                document.getElementById("filterSport").value = id;
+                            }
+                            else if (type === "tenDanhMuc") {
+                                // Nếu có filter danh mục thì set, nếu không thì bỏ qua
+                            }
+
+                            // Gọi API lọc sản phẩm
+                            filterProducts();
+                        });
+                    });
+
+
                 } catch (error) {
                     console.error(`Lỗi khi tải dữ liệu từ ${apiUrl}:`, error);
                 }
@@ -199,6 +233,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     })
                     .join("");
             }
+            grid.scrollIntoView({ behavior: "smooth" });
+
         } catch (e) {
             console.error("Lỗi khi lọc sản phẩm:", e);
         }
@@ -318,8 +354,8 @@ async function realtimeSearch() {
     </div>
     `;
 
-      
-            
+
+
         resultBox.style.display = "block";
     } catch (err) {
         console.error("Search error:", err);
