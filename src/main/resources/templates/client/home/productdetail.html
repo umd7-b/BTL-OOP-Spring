@@ -143,6 +143,7 @@
                         <label for="qty">Số lượng:</label>
                         <input id="qty" type="number" min="1" value="1">
                     </div>
+                    
                     <div class="product-options">
                     <label>Phân loại:</label>
         
@@ -153,10 +154,13 @@
                             th:text="${bt.mauSac + ' - ' + bt.kichThuoc}"
                             class="variant-btn"
                             type="button">
-                    </button>
-                                </div>
+                        </button>
+                    </div>
                                 
-                        </div>
+                </div>
+                <div class="stock-line">
+                        Tồn kho: <span id="stockInfo">--</span>
+                    </div>
                     
                         <div class="actions">
                         <button class="btn-primary" id="addToCartBtn" >🛒 Thêm vào giỏ hàng</button>

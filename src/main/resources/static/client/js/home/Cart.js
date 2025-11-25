@@ -46,6 +46,7 @@ async function checkStock(maBienThe) {
     try {
         const res = await fetch(`${API.CHECK_STOCK}/${maBienThe}`);
         if (!res.ok) return null;
+        
         return await res.json();
     } catch (error) {
         console.error("Lỗi kiểm tra tồn kho:", error);
@@ -378,8 +379,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const priceText = priceEl ? priceEl.textContent.replace(/[^\d]/g, "") : "0";
             const price = parseFloat(priceText);
 
-            // Debug log
-            console.log("📦 Dữ liệu thêm vào giỏ:", {
+        
+            console.log("Bạn đã chọn sản phẩm vào giỏ ", {
                 maKhachHang: USER.maKhachHang,
                 maBienThe: variantId,
                 soLuong: qty,

@@ -38,9 +38,7 @@ public class DashboardServiceImpl implements DashboardService {
         // tổng số sản phẩm
         dto.setTotalProducts(sanPhamRepository.count());
 
-        // tổng doanh thu: chỉ tính đơn đã hoàn thành
-        // CHÚ Ý: chỉnh giá trị này cho đúng với DB
-        // ví dụ nếu trong DB bạn lưu "DA_HOAN_THANH" thì sửa thành vậy
+       
         String STATUS_DONE = "DA_GIAO";
 
         BigDecimal revenue = donHangRepository.sumRevenueByStatus(STATUS_DONE);
