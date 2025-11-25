@@ -256,3 +256,82 @@ let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
 
+// ============ REALTIME SEARCH DROPDOWN SHOPEE STYLE ============
+function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+const searchInputEl = document.getElementById("searchInput");
+const resultBox = document.getElementById("searchResult");
+
+async function realtimeSearch() {
+    const keyword = searchInputEl.value.trim();
+
+    if (keyword.length === 0) {
+        resultBox.style.display = "none";
+        return;
+    }
+
+    try {
+        const res = await fetch(`http://localhost:8081/api/sanpham/search?keyword=${keyword}`);
+        const products = await res.json();
+
+        if (!products || products.length === 0) {
+            resultBox.innerHTML = `<div class="search-item">Không tìm thấy sản phẩm</div>`;
+            resultBox.style.display = "block";
+            return;
+        }
+        resultBox.innerHTML =
+            products
+                .map((p) => {
+                    const img = p.anhDaiDien ? p.anhDaiDien : "/assets/img/no-image.jpg";
+                    const name = p.tenSp;
+                    const price = p.giaKm ?? p.giaGoc ?? 0;
+                    const oldPrice = (p.giaGoc && p.giaKm && p.giaKm < p.giaGoc) ? p.giaGoc : null;
+
+                    return `
+                <div class="search-item" onclick="viewProduct(${p.maSp})">
+                    <img src="${img}" alt="${name}">
+                    <div class="search-info">
+                        <span class="search-name">${name}</span>
+                        <div>
+                            <span class="search-price">${price.toLocaleString()}₫</span>
+                            ${oldPrice
+                            ? `<span class="search-price-old">${oldPrice.toLocaleString()}₫</span>`
+                            : ""
+                        }
+                        </div>
+                    </div>
+                </div>
+            `;
+                })
+                .join("")
+            +
+            `
+    <div class="search-show-all"
+         onclick="window.location.href='/search?q=${keyword}'">
+         Xem tất cả sản phẩm
+    </div>
+    `;
+
+      
+            
+        resultBox.style.display = "block";
+    } catch (err) {
+        console.error("Search error:", err);
+    }
+}
+
+searchInputEl.addEventListener("input", debounce(realtimeSearch, 250));
+
+document.addEventListener("click", (e) => {
+    if (!searchInputEl.contains(e.target) && !resultBox.contains(e.target)) {
+        resultBox.style.display = "none";
+    }
+});
+
+

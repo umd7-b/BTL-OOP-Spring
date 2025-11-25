@@ -1,0 +1,75 @@
+/* ===== STYLE TRANG TÌM KIẾM ===== */
+
+/* Tiêu đề "Kết quả tìm kiếm" */
+.section-title span,
+#keyword {
+    color: #ff5722;
+    font-weight: bold;
+}
+
+/* Lưới sản phẩm giữ nguyên style từ trang chủ */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+    padding-top: 10px;
+}
+
+/* Card sản phẩm */
+.product-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+/* Ảnh sản phẩm */
+.product-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Thông tin sản phẩm */
+.product-info {
+    padding: 12px;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 38px;
+    color: #333;
+}
+
+/* Giá sản phẩm */
+.product-price {
+    margin-top: 6px;
+}
+
+.product-price .new-price {
+    color: #e53935;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-price .old-price {
+    color: #9e9e9e;
+    text-decoration: line-through;
+    margin-left: 6px;
+    font-size: 13px;
+}
+
+/* Khi không tìm thấy sản phẩm */
+.no-products {
+    font-size: 16px;
+    text-align: center;
+    padding: 40px 0;
+}

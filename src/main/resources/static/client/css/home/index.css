@@ -195,7 +195,7 @@ header {
 
 .banner .slide {
     min-width: 100%;
-    aspect-ratio: 16/7;
+    /* aspect-ratio: 16/7; */
     display: grid;
     place-items: center;
     position: relative;
@@ -1210,3 +1210,191 @@ footer {
 }
 
 
+.hero,
+.banner,
+.slides,
+.slide {
+    background: none !important;
+}
+
+/* sửa banner */
+.hero {
+    display: flex;
+    align-items: stretch;
+    /* ép tất cả phần tử cùng chiều cao */
+    gap: 20px;
+    /* nếu muốn có khoảng cách */
+}
+
+.hero .side-messi {
+    width: 22%;
+    /* hoặc tùy bạn */
+    height: 600px;
+    /* chiều cao tiêu chuẩn của ảnh bên */
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.hero .banner {
+    flex: 1;
+    /* banner ở giữa chiếm toàn bộ phần còn lại */
+}
+
+.hero .banner .slides,
+.hero .banner .slide,
+.hero .banner img {
+    height: 100%;
+    /* TRỌN BỘ bắt buộc để giãn đúng */
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* sửa part 2 */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.2fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Ảnh trái & phải */
+.hero .side-messi,
+.hero .side-muu {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Banner giữa */
+.hero .banner {
+    height: 100%;
+}
+
+.hero .banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* Promo bên phải */
+.promo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.promo .card {
+    flex: 1;
+    border-radius: 20px;
+}
+
+/* search drop down*/
+
+.search-result {
+    position: absolute;
+        top: 45px;
+        left: 0;
+        width: calc(100% - 0px);
+        /* vừa đúng với ô tìm kiếm */
+        background: white;
+        border-radius: 10px;
+        border: 1px solid #eee;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        max-height: 350px;
+        overflow-y: auto;
+        padding: 6px 0;
+        display: none;
+        z-index: 2000;
+}
+
+.search-item {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: #f2f2f2;
+}
+
+/* search drop down 2*/
+.search-result {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 6px 0;
+    display: none;
+    z-index: 2000;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.search-item:hover {
+    background: #f5f5f5;
+}
+
+.search-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.search-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 2px;
+}
+
+.search-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #d0011b;
+}
+
+.search-price-old {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 6px;
+}
+.search {
+    position: relative;
+}
+.search-show-all {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0b74e5;
+    cursor: pointer;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.search-show-all:hover {
+    background: #f0f0f0;
+}

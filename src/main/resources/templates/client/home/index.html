@@ -50,6 +50,8 @@
             id="searchInput"
             placeholder="Tìm giày, áo đấu, phụ kiện… (ví dụ: futsal, mercurial)"
           />
+          <div id="searchResult" class="search-result"></div>
+
           <button class="btn-primary" id="searchBtn">Tìm</button>
         </div>
         <div class="header-actions">
@@ -124,7 +126,7 @@
           >
             <div>
               <a href="#" style="display: block; width: 100%; height: auto; line-height: 0;">
-              <img th:src="@{/uploads/banner/banner.jpg}" 
+              <img th:src="@{/uploads/banner/bannerfinal.png}" 
                  alt="Lowtech Sport Shop Banner" 
                  style="width: 100%;display: block;"/>
           </a>
@@ -133,7 +135,7 @@
           <div
             class="slide"
             style="
-              background: linear-gradient(120deg, #6485d9 0%, #6485d9 100%);
+              background: transparent);
             "
           >
             <div>
@@ -167,7 +169,7 @@
         </div>
         
       </div>
-       <img class="side-messi" src="/uploads/banner/goat.jpg" alt="">
+       <img class="side-messi" src="/uploads/banner/muu.png" alt="">
     </section>
 
    
@@ -493,6 +495,14 @@ function addMenuListeners() {
 }
     </script>
   <script src="/client/js/home/Cart.js" defer></script>
+  <script>
+    document.getElementById("searchBtn").addEventListener("click", function () {
+        const keyword = document.getElementById("searchInput").value.trim();
+        if (keyword.length > 0) {
+            window.location.href = "/search?q=" + encodeURIComponent(keyword);
+        }
+    });
+</script>
 
 
 

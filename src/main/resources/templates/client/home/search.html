@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kết quả tìm kiếm</title>
+
+    <link th:href="@{/client/css/home/index.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="/client/css/home/search.css">
+  </head>
+
+  <body>
+    <div class="topbar">
+      Miễn phí vận chuyển đơn từ 599k • Đổi size trong 7 ngày • Hotline: 0988 888 888
+    </div>
+
+    <!-- ====== HEADER (COPY NGUYÊN TỪ index.html) ====== -->
+    <header>
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Trang chủ"
+          style="display: flex; align-items: center; text-decoration: none;">
+          <img th:src="@{/client/images/logo.png}" 
+               alt="Lowtech Store Logo"
+               style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover;" />
+          <span style="font-size: 16px; font-weight: bold; margin-left: 10px; color: #000;">
+              Lowtech Store
+          </span>
+        </a>
+
+        <div class="search" role="search">
+          <svg width="18" height="18" ...>
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+
+          <input id="searchInput" placeholder="Tìm giày, áo đấu, phụ kiện… (ví dụ: futsal, mercurial)" />
+          <div id="searchResult" class="search-result"></div>
+
+          <button class="btn-primary" id="searchBtn">Tìm</button>
+        </div>
+
+        <div class="header-actions">
+          <div class="hotline">📞 0988 888 888</div>
+
+          <a href="/cart" class="icon-btn">
+            <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path
+      d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+    ></path>
+  </svg>
+          </a>
+
+          <div id="loginBtn" class="login-icon">
+            <img src="https://th.bing.com/th/id/R.f58bd7f73934e1145c97570943087ec6?rik=41HmRGohn%2fnBJg&riu=http%3a%2f%2fwww.acsoft.vn%3a8081%2fresources%2fimages%2favatar.jpg&ehk=4oftGWjeo8XsGu%2fcHG2dUJubsKryVLuNa58H9D3TNKA%3d&risl=&pid=ImgRaw&r=0"
+              alt="user" />
+            <span class="notify-dot"></span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-inner">
+          <div class="dropdown">
+              <a href="#" id="tatCaBtn">TẤT CẢ</a>
+              <ul id="tatCaList" class="dropdown-content"></ul>
+          </div>
+
+          <div class="dropdown">
+              <a href="#" id="thuongHieuBtn">THƯƠNG HIỆU</a>
+              <ul id="thuongHieuList" class="dropdown-content"></ul>
+          </div>
+
+          <div class="dropdown">
+              <a href="#" id="monTheThaoBtn">MÔN THỂ THAO</a>
+              <ul id="monTheThaoList" class="dropdown-content"></ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ====== BỎ HERO - KHÔNG COPY ====== -->
+
+    <!-- ====== TOOLBAR giữ nguyên ====== -->
+    <div class="toolbar" id="toolbar">
+      <div class="filters">
+        <button class="chip active" id="allBtn">Tất cả</button>
+        <select class="chip" id="filterBrand"><option value="">Thương hiệu</option></select>
+        <select class="chip" id="filterSport"><option value="">Môn thể thao</option></select>
+        <select class="chip" id="filterPrice">
+          <option value="">Khoảng giá</option>
+          <option value="0-500000">Dưới 500K</option>
+          <option value="500000-1000000">500K - 1 triệu</option>
+          <option value="1000000-2000000">1 - 2 triệu</option>
+          <option value="2000000-99999999">Trên 2 triệu</option>
+        </select>
+      </div>
+
+      <select class="sort" id="sortSelect">
+        <option value="popular">Phổ biến</option>
+        <option value="price-asc">Giá tăng dần</option>
+        <option value="price-desc">Giá giảm dần</option>
+        <option value="newest">Mới nhất</option>
+      </select>
+    </div>
+
+    <!-- ====== KẾT QUẢ TÌM KIẾM ====== -->
+    <section class="product-section">
+      <h2 class="section-title">
+        Kết quả tìm kiếm cho: <span id="keyword"></span>
+      </h2>
+
+      <div id="searchResultList" class="product-grid"></div>
+    </section>
+
+    <!-- ====== FOOTER giữ nguyên ====== -->
+    <footer>
+      <div class="footer-inner">
+        <div class="ft-col">
+          <h4>LT SPORT STORE</h4>
+          <p>Hệ thống cửa hàng đồ thể thao …</p>
+          <div class="newsletter">
+            <input placeholder="Nhập email để nhận ưu đãi" />
+            <button class="btn-primary">Đăng ký</button>
+          </div>
+        </div>
+
+        <div class="ft-col">
+          <h4>Liên hệ</h4>
+          <p>Hotline: 0988 888 888<br>Email: support@LTStore.vn</p>
+        </div>
+
+        <div class="ft-col">
+          <h4>Chính sách</h4>
+          <p>Giao hàng & Đổi trả<br>Bảo hành …</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ====== SCRIPT GIỮ NGUYÊN ====== -->
+    <script th:src="@{/client/js/home/index.js}" defer></script>
+    <script src="/client/js/home/search.js"></script>
+
+    <script>
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const response = await fetch('/api/auth/me');
+
+        if (response.ok) {
+            const user = await response.json();
+
+            const username = user.tenDangNhap || user.username || user.ten_dang_nhap;
+            const hoTen = user.hoTen || user.ho_ten;
+
+            if (!hoTen) {
+                console.error("Không tìm thấy hoTen...");
+                sessionStorage.clear();
+                renderLoginButton();
+                return;
+            }
+
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("ho_ten", hoTen);
+
+            renderUserMenu(hoTen);
+
+        } else {
+            sessionStorage.clear();
+            renderLoginButton();
+        }
+
+    } catch (error) {
+        console.error("Không thể kết nối server:", error);
+        sessionStorage.clear();
+        renderLoginButton();
+    }
+});
+
+function renderUserMenu(hoTen) {
+    const loginBtn = document.getElementById("loginBtn");
+    if (!loginBtn) return;
+
+    loginBtn.outerHTML = `
+<div class="user-menu-container">
+ <div id="userMenuTrigger" class="user-menu-trigger">
+ <span>👤 Xin chào, <strong>${hoTen}</strong></span>
+ <span class="dropdown-arrow">▼</span>
+ </div>
+ <div id="userDropdownMenu" class="dropdown-menu">
+ <a href="/profile">Thông tin cá nhân</a>
+ <a href="/cart">Giỏ hàng</a>
+ <a href="/order">Đơn hàng</a>
+ <a href="#" id="logoutBtn">Đăng xuất</a>
+ </div>
+</div>`;
+
+    addMenuListeners();
+}
+
+function renderLoginButton() {
+    const menuContainer = document.querySelector(".user-menu-container");
+    if (menuContainer) {
+        menuContainer.outerHTML = `
+        <div id="loginBtn" class="login-icon">
+            <img src="https://th.bing.com/th/id/R.f58bd7f73934e1145c97570943087ec6?rik=41HmRGohn%2fnBJg... alt="user"/>
+            <span class="notify-dot"></span>
+        </div>`;
+    }
+    
+    const loginBtn = document.getElementById("loginBtn");
+    if(loginBtn) {
+        loginBtn.addEventListener("click", () => {
+            window.location.href = "/login";
+        });
+    }
+}
+
+function addMenuListeners() {
+    const menuTrigger = document.getElementById("userMenuTrigger");
+    const dropdownMenu = document.getElementById("userDropdownMenu");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (menuTrigger && dropdownMenu) {
+        menuTrigger.addEventListener("click", (event) => {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("show");
+        });
+    }
+
+    window.addEventListener("click", (e) => {
+        if (menuTrigger && dropdownMenu && dropdownMenu.classList.contains("show") 
+            && !menuTrigger.contains(e.target)) 
+        {
+            dropdownMenu.classList.remove("show");
+        }
+    });
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            try {
+                await fetch('/logout', { method: 'POST' });
+            } catch (err) {
+                console.error("Lỗi logout");
+            } finally {
+                sessionStorage.clear();
+                window.location.reload();
+            }
+        });
+    }
+}
+</script>
+
+  </body>
+</html>
