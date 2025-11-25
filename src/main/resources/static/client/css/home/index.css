@@ -1398,3 +1398,239 @@ footer {
 .search-show-all:hover {
     background: #f0f0f0;
 }
+
+
+
+
+
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f9fafb;
+            padding: 20px;
+        }
+
+        .promo {
+            display: grid;
+            gap: 16px;
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .promo .card {
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            padding: 28px 24px;
+            min-height: 140px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hiệu ứng viền gradient chuyển động */
+        .promo .card::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(
+                45deg,
+                #ff4400,
+                #ff6a00,
+                #ffaa00,
+                #ff4400
+            );
+            background-size: 300% 300%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: gradientBorder 4s ease infinite;
+        }
+
+        @keyframes gradientBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Hiệu ứng ánh sáng xoay */
+        .promo .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle at center,
+                rgba(255, 68, 0, 0.25) 0%,
+                rgba(255, 106, 0, 0.15) 25%,
+                transparent 50%
+            );
+            animation: rotateLight 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotateLight {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .promo .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255, 68, 0, 0.4);
+        }
+
+        .promo .card h3 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .promo .card small {
+            color: #e5e7eb;
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+            display: block;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Badge góc phải với hiệu ứng sáng */
+        .badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(135deg, #ff4400, #ff6a00);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(255, 68, 0, 0.6);
+            animation: pulseBadge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 68, 0, 0.6);
+            }
+            50% { 
+                transform: scale(1.08);
+                box-shadow: 0 6px 25px rgba(255, 68, 0, 0.9);
+            }
+        }
+
+        /* Icon thể thao với hiệu ứng float */
+        .icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 56px;
+            opacity: 0.12;
+            z-index: 0;
+            animation: floatIcon 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 68, 0, 0.3));
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Hiệu ứng shimmer khi hover */
+        .promo .card:hover::after {
+            animation: rotateLight 3s linear infinite;
+        }
+
+        /* Particles effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 50%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50%) scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 767px) {
+            .promo .card {
+                padding: 24px 20px;
+            }
+
+            .promo .card h3 {
+                font-size: 22px;
+            }
+
+            .icon {
+                font-size: 48px;
+            }
+        }
+
+        /* Dark shine effect */
+        .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+
+        .promo .card:hover .shine {
+            left: 100%;
+        }
+        
+        

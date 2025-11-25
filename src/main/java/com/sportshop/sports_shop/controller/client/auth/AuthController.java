@@ -24,13 +24,13 @@ public class AuthController {
     @Autowired
     private KhachHangRepository khachHangRepository;
 
-    // ======= TRANG LOGIN (HTML VIEW) =======
+    
     @GetMapping("/login")
     public String loginPage() {
         return "client/auth/login";
     }
 
-    // ======= TRANG REGISTER (HTML VIEW) =======
+
     @GetMapping("/register")
     public String registerPage() {
         return "client/auth/register";
